@@ -1,0 +1,20 @@
+{
+  "name": "metroproject1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "ziggyAdinko"
+  },
+  "author": "Ziggy Yafi Hisyam",
+  "license": "ISC",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "description": "",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
