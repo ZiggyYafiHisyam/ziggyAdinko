@@ -15,12 +15,12 @@ const updateUser = (idUser, body) => {
     const { name, email } = body;
     const SQLQuery = `UPDATE users SET name = '${body.name}', email = '${body.email}' WHERE idUser = ${idUser}`;
     return db.execute(SQLQuery);
-}
+};
 
 const deleteUser = (idUser) => {
     const SQLQuery = `DELETE FROM users WHERE idUser = ${idUser}`;
     return db.execute(SQLQuery);
-}
+};
 
 module.exports = {
     getAllUsers,
