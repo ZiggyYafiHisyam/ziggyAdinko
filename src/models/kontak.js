@@ -5,4 +5,10 @@ const getKontak = () => {
     return db.execute(SQLQuery);
 };
 
-module.exports = { getKontak };
+const createMessage = (body) => {
+    const { name, noWA, location, kebutuhan, details } = body;
+    const SQLQuery = `INSERT INTO messages (name, noWA, location, kebutuhan, details) VALUES (?, ?, ?, ?, ?)`;
+    return db.execute(SQLQuery, [name, noWA, location, kebutuhan, details]);
+};
+
+module.exports = { getKontak, createMessage };

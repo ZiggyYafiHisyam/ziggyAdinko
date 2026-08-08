@@ -4,12 +4,13 @@ const getTestimoni = async (req, res) => {
     try {
         const [data] = await TestimoniModels.getTestimoni();
         res.json({
-            message: 'Testimoni data has been retrieved',
+            message: 'Testimoni messages retrieved',
             data: data
         });
     } catch (error) {
+        console.error(error);
         res.status(500).json({
-            message: 'Error retrieving testimoni data',
+            message: 'Error retrieving testimoni messages',
             serverMessage: error
         });
     }

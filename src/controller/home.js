@@ -1,6 +1,6 @@
 const HomeModels = require('../models/home');
 
-//buat DB kalo udah ada data
+// READ - GET (ambil data isian home)
 const getHome = async (req, res) => {
     try {
         const [data] = await HomeModels.getHome();
@@ -8,17 +8,39 @@ const getHome = async (req, res) => {
             message: 'Welcome to Adinko Home Page by Zeke',
             data: data
         });
-    }    
+    }
     catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
 
-//buat sementara mastiin routing bisa
-// res.json({
-//         message: 'Welcome to Adinko Home Page by Zeke',
-//         data: null
-//     });
-// }
-module.exports = { getHome };
+// CREATE - POST (terima pengiriman pesan dari web)
+const createMessage = async (req, res) => {
+    const { name, noWA, location, kebutuhan, details } = req.body;
+
+    if (!name || !noWA || !kebutuhan) {
+        return res.status(400).json({ message: 'Missing required fields: name, noWA or kebutuhan' });
+    }
+
+    try {
+        const result = await HomeModels.createMessage({ name, noWA, location, kebutuhan, details });
+        res.status(201).json({
+            message: 'Message received',
+            data: {
+                id: result[0].insertId,
+                name,
+                noWA,
+                location,
+                kebutuhan,
+                details
+            }
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to save message', serverMessage: error });
+    }
+};
+
+module.exports = { getHome, createMessage };
