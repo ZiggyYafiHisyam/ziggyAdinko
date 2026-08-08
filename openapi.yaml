@@ -1,0 +1,70 @@
+openapi: 3.0.1
+info:
+  title: Adinko API
+  version: "1.0.0"
+  description: API for Adinko project (home/kontak/testimoni)
+servers:
+  - url: https://{host}
+    variables:
+      host:
+        default: localhost:4000
+paths:
+  /home:
+    get:
+      summary: Get home content
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Submit a message from home
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageInput'
+      responses:
+        '201':
+          description: Created
+  /kontak:
+    get:
+      summary: Get kontak data
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Submit a message from kontak
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageInput'
+      responses:
+        '201':
+          description: Created
+  /testimoni:
+    get:
+      summary: List submitted messages (testimoni)
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    MessageInput:
+      type: object
+      properties:
+        name:
+          type: string
+        noWA:
+          type: string
+        location:
+          type: string
+        kebutuhan:
+          type: string
+        details:
+          type: string
+      required:
+        - name
+        - noWA
+        - kebutuhan
