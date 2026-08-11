@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Adinko API
   version: "1.0.0"
-  description: API for Adinko project (home/kontak/testimoni)
+  description: API for Adinko project (home, about, layanan, portofolio, kontak, testimoni, upload, static assets)
 servers:
   - url: https://{host}
     variables:
@@ -11,44 +11,396 @@ servers:
 paths:
   /home:
     get:
-      summary: Get home content
+      summary: Get home page content
       responses:
         '200':
-          description: OK
+          description: Home content retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeResponse'
+              examples:
+                success:
+                  value:
+                    message: "Welcome to Adinko Home Page by Zeke"
+                    data:
+                      - id_home: 1
+                        title: "Welcome"
+                        subtitle: "Adinko home page"
+                        content: "This is the home page content."
+                        created_at: "2026-08-09T10:00:00Z"
+                        updated_at: "2026-08-09T10:00:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Internal Server Error"
+                    serverMessage: "Database connection failed"
     post:
-      summary: Submit a message from home
+      summary: Submit a message from the home page
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MessageInput'
+            examples:
+              requestExample:
+                value:
+                  name: "Ziggy"
+                  noWA: "081234567890"
+                  location: "Bandung"
+                  kebutuhan: "Jasa Pembuatan Website"
+                  details: "Saya ingin membuat situs portofolio."
       responses:
         '201':
-          description: Created
+          description: Message received successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageCreatedResponse'
+              examples:
+                created:
+                  value:
+                    message: "Message received"
+                    data:
+                      id: 123
+                      name: "Ziggy"
+                      noWA: "081234567890"
+                      location: "Bandung"
+                      kebutuhan: "Jasa Pembuatan Website"
+                      details: "Saya ingin membuat situs portofolio."
+        '400':
+          description: Missing required fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                validationError:
+                  value:
+                    message: "Missing required fields: name, noWA or kebutuhan"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Failed to save message"
+                    serverMessage: "Database insert failed"
+  /about:
+    get:
+      summary: Get about page content
+      responses:
+        '200':
+          description: About content retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AboutResponse'
+              examples:
+                success:
+                  value:
+                    message: "About data has been retrieved"
+                    data:
+                      - id_about: 1
+                        title: "Tentang Adinko"
+                        subtitle: "Solusi digital kreatif"
+                        content: "Adinko menyediakan layanan kreatif dan teknologi."
+                        created_at: "2026-08-09T10:00:00Z"
+                        updated_at: "2026-08-09T10:00:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Error retrieving about data"
+                    serverMessage: "Query failed"
+  /layanan:
+    get:
+      summary: Get layanan page content
+      responses:
+        '200':
+          description: Layanan content retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LayananResponse'
+              examples:
+                success:
+                  value:
+                    message: "Layanan data has been retrieved"
+                    data:
+                      - id: 1
+                        title: "Web Development"
+                        description: "Layanan pembuatan website modern"
+                        created_at: "2026-08-09T10:00:00Z"
+                        updated_at: "2026-08-09T10:00:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Error retrieving layanan data"
+                    serverMessage: "Query failed"
+  /portofolio:
+    get:
+      summary: Get portofolio page content
+      responses:
+        '200':
+          description: Portofolio content retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortofolioResponse'
+              examples:
+                success:
+                  value:
+                    message: "Portofolio data has been retrieved"
+                    data:
+                      - id: 1
+                        title: "Adinko Portfolio"
+                        description: "Contoh proyek yang telah diselesaikan"
+                        created_at: "2026-08-09T10:00:00Z"
+                        updated_at: "2026-08-09T10:00:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Error retrieving portofolio data"
+                    serverMessage: "Query failed"
   /kontak:
     get:
-      summary: Get kontak data
+      summary: Get kontak page content
       responses:
         '200':
-          description: OK
+          description: Kontak data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KontakResponse'
+              examples:
+                success:
+                  value:
+                    message: "Kontak data has been retrieved"
+                    data:
+                      - id_kontak: 1
+                        kontak_badge: "Kontak"
+                        kontak_title: "Hubungi Kami"
+                        kontak_description: "Silakan hubungi untuk informasi lebih lanjut"
+                        kontak_background_image: "background.jpg"
+                        button_primary_text: "Hubungi"
+                        button_primary_link: "https://wa.me/081234567890"
+                        button_secondary_text: "Email"
+                        button_secondary_link: "mailto:info@adinko.com"
+                        trust_projects: "120"
+                        trust_expert: "50"
+                        trust_material: "20"
+                        trust_survey: "300"
+                        about_preview_title: "Tentang Kami"
+                        about_preview_description: "Kami adalah tim kreatif"
+                        about_preview_button_text: "Pelajari Lebih Lanjut"
+                        about_preview_button_link: "https://adinko.com/about"
+                        created_at: "2026-08-09T10:00:00Z"
+                        updated_at: "2026-08-09T10:00:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Error retrieving kontak data"
+                    serverMessage: "Query failed"
     post:
-      summary: Submit a message from kontak
+      summary: Submit a message from the kontak page
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MessageInput'
+            examples:
+              requestExample:
+                value:
+                  name: "Ziggy"
+                  noWA: "081234567890"
+                  location: "Jakarta"
+                  kebutuhan: "Konsultasi Website"
+                  details: "Saya ingin konsultasi mengenai website perusahaan."
       responses:
         '201':
-          description: Created
+          description: Message received successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageCreatedResponse'
+              examples:
+                created:
+                  value:
+                    message: "Message received"
+                    data:
+                      id: 124
+                      name: "Ziggy"
+                      noWA: "081234567890"
+                      location: "Jakarta"
+                      kebutuhan: "Konsultasi Website"
+                      details: "Saya ingin konsultasi mengenai website perusahaan."
+        '400':
+          description: Missing required fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                validationError:
+                  value:
+                    message: "Missing required fields: name, noWA or kebutuhan"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Failed to save message"
+                    serverMessage: "Database insert failed"
   /testimoni:
     get:
-      summary: List submitted messages (testimoni)
+      summary: List submitted testimoni messages
       responses:
         '200':
-          description: OK
+          description: Testimoni messages retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimoniResponse'
+              examples:
+                success:
+                  value:
+                    message: "Testimoni messages retrieved"
+                    data:
+                      - id: 124
+                        name: "Ziggy"
+                        noWA: "081234567890"
+                        location: "Jakarta"
+                        kebutuhan: "Konsultasi Website"
+                        details: "Saya ingin konsultasi mengenai website perusahaan."
+                        created_at: "2026-08-09T10:05:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Error retrieving testimoni messages"
+                    serverMessage: "Query failed"
+  /upload:
+    post:
+      summary: Upload a picture file used by the site
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                pictures:
+                  type: string
+                  format: binary
+            examples:
+              uploadExample:
+                value:
+                  pictures: "<binary file>"
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+              examples:
+                created:
+                  value:
+                    message: "File has been uploaded"
+        '400':
+          description: Bad request or missing upload file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequest:
+                  value:
+                    message: "Missing file upload"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                serverError:
+                  value:
+                    message: "Failed to upload file"
+                    serverMessage: "Storage error"
+  /assets/{filename}:
+    get:
+      summary: Download a static asset image file
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Filename of the image under public/images
+      responses:
+        '200':
+          description: Static asset retrieved successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  value:
+                    message: "File not found"
+                    serverMessage: "The requested image does not exist"
 components:
   schemas:
     MessageInput:
@@ -68,3 +420,216 @@ components:
         - name
         - noWA
         - kebutuhan
+    MessageCreatedResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/MessageStored'
+    MessageStored:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        noWA:
+          type: string
+        location:
+          type: string
+        kebutuhan:
+          type: string
+        details:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        serverMessage:
+          type: string
+    HomeResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomeItem'
+    HomeItem:
+      type: object
+      properties:
+        id_home:
+          type: integer
+        title:
+          type: string
+        subtitle:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    AboutResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AboutItem'
+    AboutItem:
+      type: object
+      properties:
+        id_about:
+          type: integer
+        title:
+          type: string
+        subtitle:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    LayananResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayananItem'
+    LayananItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    PortofolioResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortofolioItem'
+    PortofolioItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    KontakResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/KontakItem'
+    KontakItem:
+      type: object
+      properties:
+        id_kontak:
+          type: integer
+        kontak_badge:
+          type: string
+        kontak_title:
+          type: string
+        kontak_description:
+          type: string
+        kontak_background_image:
+          type: string
+        button_primary_text:
+          type: string
+        button_primary_link:
+          type: string
+        button_secondary_text:
+          type: string
+        button_secondary_link:
+          type: string
+        trust_projects:
+          type: string
+        trust_expert:
+          type: string
+        trust_material:
+          type: string
+        trust_survey:
+          type: string
+        about_preview_title:
+          type: string
+        about_preview_description:
+          type: string
+        about_preview_button_text:
+          type: string
+        about_preview_button_link:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    TestimoniResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestimoniItem'
+    TestimoniItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        noWA:
+          type: string
+        location:
+          type: string
+        kebutuhan:
+          type: string
+        details:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    UploadResponse:
+      type: object
+      properties:
+        message:
+          type: string
