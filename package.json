@@ -10,13 +10,18 @@
   "license": "ISC",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build",
+    "start:full": "npm run frontend:build && node src/index.js"
   },
   "description": "",
   "dependencies": {
     "express": "^5.2.1",
     "multer": "^2.2.0",
     "mysql2": "^3.23.2",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   }
 }
