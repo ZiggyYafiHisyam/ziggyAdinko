@@ -1,0 +1,11 @@
+19 Agustus 2026
+1) Fungsi Backend berfungsi semua dengan frontend yang telah dibuat
+2) Akses baru bisa lewat localhost:4000/
+3) Beberapa gambar masih belum bisa di tampilkan ke web (mungkin masalah tipe data foto)
+4) Input dan Output data dari DB berfungsi semua
+5) Perlu penyesuaian parameter database dengan tiap halaman web
+6) Akses web ke halaman lain masih perlu dari home page, gabisa langsung ke halaman lain
+7) Perbaikan kenapa routing per halaman gabisa diakses manual lewat URL
+
+Next: 
+Mengatasi masalah yang dialami dalam hal akses route halaman web selain home
