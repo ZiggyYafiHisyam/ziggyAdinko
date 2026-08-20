@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 
 // Adinko / Abiya Leaf Rosette Logo (Exact match with user image)
 export const AdinkoLogo = ({ className = "", size = 46, style = {} }) => {

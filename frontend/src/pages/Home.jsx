@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Star, MapPin, Phone, CheckCircle2, ChevronRight, Navigation } from 'lucide-react';
+import { ArrowRight, Star, MapPin, Phone, ChevronRight, Navigation } from 'lucide-react';
 import { InstagramIcon } from '../assets/Icons';
 import { siteConfig, portfolioData, testimonialsData } from '../data/siteData';
 import { FeatureCards } from '../components/FeatureCards';

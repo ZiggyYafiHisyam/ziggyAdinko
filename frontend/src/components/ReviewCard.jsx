@@ -1,13 +1,12 @@
-import React from 'react';
 import { Star } from 'lucide-react';
 
-export const ReviewCard = ({ review, variant = "light" }) => {
+export const ReviewCard = ( review, variant = "light" ) => {
   const isDark = variant === "dark";
 
   return (
     <div className={isDark ? "review-card" : "review-card-light"}>
       <p className="review-text">
-        "{review.text}"
+        {review.text}
       </p>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

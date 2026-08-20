@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Award, Shield, Layers, Headphones } from 'lucide-react';
 import { HeroFloatingBadge } from '../components/FloatingCta';

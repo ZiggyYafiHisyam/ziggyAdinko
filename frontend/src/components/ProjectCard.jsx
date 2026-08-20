@@ -1,7 +1,4 @@
-import React from 'react';
-import { MapPin } from 'lucide-react';
-
-export const ProjectCard = ({ project }) => {
+export const ProjectCard = ( project ) => {
   return (
     <div className="project-card">
       <div className="project-img-wrapper">

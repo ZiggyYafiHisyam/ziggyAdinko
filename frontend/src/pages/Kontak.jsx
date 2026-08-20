@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MapPin, Phone, MessageCircle, ArrowRight } from 'lucide-react';
 import { InstagramIcon } from '../assets/Icons';
 import { siteConfig } from '../data/siteData';

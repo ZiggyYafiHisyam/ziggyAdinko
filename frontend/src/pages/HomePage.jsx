@@ -140,7 +140,7 @@ const HomePage = () => {
         <div className="testimonial-grid">
           {testimonials.map((item) => (
             <article key={item.name} className="testimonial-card" style={{ background: '#17223a', color: 'white' }}>
-              <p>"{item.quote}"</p>
+              <p>{item.quote}</p>
               <div className="testimonial-meta">
                 <div className="testimonial-avatar">{item.name.split(' ').map((w) => w[0]).join('')}</div>
                 <div>

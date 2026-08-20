@@ -1,5 +1,4 @@
-import React from 'react';
-import { Phone, MessageCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { siteConfig } from '../data/siteData';
 
 // Hero Section Floating Badge

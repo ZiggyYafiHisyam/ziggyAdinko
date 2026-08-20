@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Adinko × GhaziSportsHub",
+  name: "Adinko x GhaziSportsHub",
   tagline: "Penyedia solusi rumput sintetis dan fasilitas olahraga profesional terbaik di Pekanbaru & Riau. Dipercaya oleh 1000+ klien.",
   since: "Pekanbaru Sejak 2019",
   contacts: {

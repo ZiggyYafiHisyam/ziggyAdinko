@@ -1,6 +1,6 @@
 import Navbar from './Navbar';
 
-const PageLayout = ({ children }) => {
+const PageLayout = ( children ) => {
   return (
     <div className="app-shell">
       <Navbar />
