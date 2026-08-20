@@ -164,7 +164,7 @@ export const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> 
 
       {/* 4. INTERACTIVE FEATURE CARDS (001 - 004) */}
       <section className="interactive-features-section">
