@@ -1,4 +1,5 @@
-export const ProjectCard = ( project ) => {
+/* eslint-disable react/prop-types */
+export const ProjectCard = ({ project }) => {
   return (
     <div className="project-card">
       <div className="project-img-wrapper">

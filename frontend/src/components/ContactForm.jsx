@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { siteConfig } from '../data/siteData';
 import { fetchApi } from '../api';
 
-export const ContactForm = (title ="Kirim Pesan Sekarang") => {
+export const ContactForm = ({ title = "Kirim Pesan Sekarang" }) => {
   const [formData, setFormData] = useState({
     nama: '',
     whatsapp: '',

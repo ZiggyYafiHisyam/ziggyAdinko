@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Star } from 'lucide-react';
 
-export const ReviewCard = ( review, variant = "light" ) => {
+export const ReviewCard = ({ review, variant = "light" }) => {
   const isDark = variant === "dark";
 
   return (

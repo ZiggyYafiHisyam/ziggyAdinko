@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { Layers, LayoutGrid, Gem, ShieldCheck, Sparkles } from 'lucide-react';
 import { interactiveFeatures } from '../data/siteData';
@@ -12,7 +13,7 @@ const getFeatureIcon = (iconName) => {
   }
 };
 
-export const FeatureCards = (activeIndexDefault = 0) => {
+export const FeatureCards = ({ activeIndexDefault = 0 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(activeIndexDefault);
 
   return (
