@@ -1,0 +1,76 @@
+-- TiDB Cloud schema for the local express_mysql database
+-- Paste this entire file into the TiDB Cloud SQL Editor.
+
+CREATE DATABASE IF NOT EXISTS express_mysql;
+USE express_mysql;
+
+CREATE TABLE IF NOT EXISTS kontak (
+    id_kontak INT AUTO_INCREMENT PRIMARY KEY,
+    kontak_badge VARCHAR(100),
+    kontak_title VARCHAR(255) NOT NULL,
+    kontak_description TEXT,
+    kontak_background_image VARCHAR(255),
+    button_primary_text VARCHAR(100),
+    button_primary_link VARCHAR(255),
+    button_secondary_text VARCHAR(100),
+    button_secondary_link VARCHAR(255),
+    trust_projects VARCHAR(50),
+    trust_expert VARCHAR(50),
+    trust_material VARCHAR(50),
+    trust_survey VARCHAR(50),
+    about_preview_title VARCHAR(255),
+    about_preview_description TEXT,
+    about_preview_button_text VARCHAR(100),
+    about_preview_button_link VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS home (
+    id_home INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    subtitle VARCHAR(255),
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS about (
+    id_about INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    content TEXT,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS layanan (
+    id_layanan INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    category VARCHAR(100),
+    description TEXT,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS portofolio (
+    id_portofolio INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    category VARCHAR(100),
+    location VARCHAR(255),
+    description TEXT,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS messages (
+    id_message INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    noWA VARCHAR(50) NOT NULL,
+    location VARCHAR(255),
+    kebutuhan VARCHAR(255) NOT NULL,
+    details TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
