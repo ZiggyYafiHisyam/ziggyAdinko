@@ -1,5 +1,8 @@
 const express = require('express');
+const path = require('path');
 const upload = require('./middleware/multer');
+const sessionMiddleware = require('./middleware/session');
+const authRoutes = require('./routes/auth');
 const homeRoutes = require('./routes/home');
 const aboutRoutes = require('./routes/about');
 const layananRoutes = require('./routes/layanan');
@@ -13,7 +16,13 @@ const app = express();
 app.use(middlewareLogRequest);
 app.use('/assets', express.static('public/images'));
 app.use(express.json());
+app.use(sessionMiddleware);
 
+// Authentication Routes
+app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
+
+// Public & Admin Resource Routes
 app.use('/home', homeRoutes);
 app.use('/about', aboutRoutes);
 app.use('/layanan', layananRoutes);
@@ -28,8 +37,63 @@ app.use('/api/portofolio', portofolioRoutes);
 app.use('/api/testimoni', testimoniRoutes);
 app.use('/api/kontak', kontakRoutes);
 
-app.post('/upload', upload.single('pictures'), (req, res) => {
-  res.status(201).json({ message: 'File has been uploaded' });
+const handleUpload = (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'Tidak ada file yang diunggah.' });
+  }
+  const fileUrl = `/assets/${req.file.filename}`;
+  res.status(201).json({ 
+    message: 'File berhasil diunggah', 
+    url: fileUrl, 
+    filename: req.file.filename 
+  });
+};
+
+app.post('/upload', upload.single('pictures'), handleUpload);
+app.post('/api/upload', upload.single('pictures'), handleUpload);
+
+// Serve Frontend SPA
+const fs = require('fs');
+const frontendDist = path.resolve(__dirname, '../frontend/dist');
+const indexPath = path.join(frontendDist, 'index.html');
+
+app.use(express.static(frontendDist));
+
+app.get(/^\/(?!api(?:\/|$)|auth(?:\/|$)|home(?:\/|$)|about(?:\/|$)|layanan(?:\/|$)|portofolio(?:\/|$)|testimoni(?:\/|$)|kontak(?:\/|$)|upload(?:\/|$)|assets(?:\/|$)).*/, (req, res) => {
+  if (fs.existsSync(indexPath)) {
+    res.sendFile('index.html', { root: frontendDist }, (err) => {
+      if (err && !res.headersSent) {
+        res.status(500).send('Error serving frontend application: ' + err.message);
+      }
+    });
+  } else {
+    res.status(200).send(`
+      <!DOCTYPE html>
+      <html lang="id">
+        <head>
+          <meta charset="UTF-8" />
+          <title>Adinko Admin - Development Mode</title>
+          <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #F8F9FA; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+            .card { background: #FFFFFF; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 500px; text-align: center; }
+            h2 { color: #121212; margin-top: 0; }
+            p { color: #667085; line-height: 1.6; }
+            .btn { display: inline-block; margin-top: 16px; padding: 12px 24px; background: #486F0C; color: #FFF; text-decoration: none; border-radius: 8px; font-weight: bold; }
+            code { background: #F2F4F7; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <h2>Mode Development Aktif</h2>
+            <p>Untuk mengakses <strong>Panel Admin</strong> atau <strong>Website Publik</strong> dalam mode dev, silakan buka frontend melalui server Vite:</p>
+            <a class="btn" href="http://localhost:5173/admin/login">Buka http://localhost:5173/admin/login</a>
+            <p style="margin-top: 24px; font-size: 0.85em;">Atau jalankan <code>npm run frontend:build</code> jika ingin melayani langsung melalui port Express.</p>
+          </div>
+        </body>
+      </html>
+    `);
+  }
 });
 
 module.exports = app;
+

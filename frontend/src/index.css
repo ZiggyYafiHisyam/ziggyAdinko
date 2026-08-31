@@ -1265,3 +1265,42 @@ img {
     padding: 36px 20px;
   }
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Admin Dashboard Responsive Helpers */
+@media (max-width: 768px) {
+  .admin-sidebar-desktop {
+    display: none !important;
+  }
+  .admin-header-mobile {
+    display: flex !important;
+  }
+}
+
+/* -------------------------------------------------------------
+   ADMIN PANEL THEME TOGGLE (dark / light)
+-------------------------------------------------------------- */
+/* Smooth transition on all admin bg/color changes */
+[data-admin-theme] * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Theme toggle FAB pulse animation on mount */
+@keyframes fabPop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  80%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
