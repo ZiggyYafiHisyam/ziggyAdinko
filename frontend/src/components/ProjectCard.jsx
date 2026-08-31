@@ -3,7 +3,7 @@ export const ProjectCard = ({ project }) => {
   return (
     <div className="project-card">
       <div className="project-img-wrapper">
-        <img src={project.image} alt={project.title} loading="lazy" />
+        <img src={project.image ? project.image.split(',')[0].trim() : ''} alt={project.title} loading="lazy" />
         <span className="project-tag-badge">{project.category}</span>
       </div>
       <div className="project-body">

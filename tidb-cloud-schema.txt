@@ -1,6 +1,3 @@
--- TiDB Cloud schema for the local express_mysql database
--- Paste this entire file into the TiDB Cloud SQL Editor.
-
 CREATE DATABASE IF NOT EXISTS express_mysql;
 USE express_mysql;
 

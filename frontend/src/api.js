@@ -54,9 +54,15 @@ export const deleteRow = async (resource, id) => {
   });
 };
 
-export const uploadFile = async (file) => {
+export const uploadFile = async (files) => {
   const formData = new FormData();
-  formData.append('pictures', file);
+  if (files instanceof FileList || Array.isArray(files)) {
+    for (let i = 0; i < files.length; i++) {
+      formData.append('pictures', files[i]);
+    }
+  } else {
+    formData.append('pictures', files);
+  }
   return fetchApi('/upload', {
     method: 'POST',
     body: formData

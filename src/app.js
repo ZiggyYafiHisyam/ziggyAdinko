@@ -15,7 +15,8 @@ const app = express();
 
 app.use(middlewareLogRequest);
 app.use('/assets', express.static('public/images'));
-app.use(express.json());
+app.use(express.json({ strict: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware);
 
 // Authentication Routes
@@ -100,6 +101,16 @@ app.get(/^\/(?!api(?:\/|$)|auth(?:\/|$)|home(?:\/|$)|about(?:\/|$)|layanan(?:\/|
       </html>
     `);
   }
+});
+
+// Global error handler — catches body-parser SyntaxErrors (Express 5) and returns JSON
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  if (err.type === 'entity.parse.failed' || err instanceof SyntaxError) {
+    return res.status(400).json({ message: 'Invalid JSON body', serverMessage: err.message });
+  }
+  console.error('Unhandled error:', err);
+  res.status(500).json({ message: 'Internal server error', serverMessage: err.message });
 });
 
 module.exports = app;

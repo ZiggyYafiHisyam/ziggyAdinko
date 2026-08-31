@@ -70,15 +70,18 @@ export const AdminPortofolio = () => {
   };
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
     setUploading(true);
     setError('');
     try {
-      const res = await uploadFile(file);
+      const res = await uploadFile(files);
       if (res && res.url) {
-        setFormData(prev => ({ ...prev, image: res.url }));
+        setFormData(prev => ({ 
+          ...prev, 
+          image: prev.image ? `${prev.image},${res.url}` : res.url 
+        }));
       }
     } catch (err) {
       setError('Gagal mengunggah gambar: ' + (err.message || 'Error'));
@@ -221,7 +224,7 @@ export const AdminPortofolio = () => {
               <div style={{ height: '180px', position: 'relative', background: '#E4E7EC' }}>
                 {item.image ? (
                   <img
-                    src={item.image}
+                    src={item.image.split(',')[0].trim()}
                     alt={item.title}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
@@ -440,6 +443,7 @@ export const AdminPortofolio = () => {
                     <input
                       type="file"
                       accept="image/*"
+                      multiple
                       onChange={handleFileUpload}
                       style={{ display: 'none' }}
                       disabled={uploading}
@@ -448,8 +452,12 @@ export const AdminPortofolio = () => {
                 </div>
 
                 {formData.image && (
-                  <div style={{ width: '100%', height: '120px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #EAECF0' }}>
-                    <img src={formData.image} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '8px' }}>
+                    {formData.image.split(',').map((imgUrl, idx) => (
+                      <div key={idx} style={{ width: '100%', height: '120px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #EAECF0' }}>
+                        <img src={imgUrl.trim()} alt={`Preview ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
