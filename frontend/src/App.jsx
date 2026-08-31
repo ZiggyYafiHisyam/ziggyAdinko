@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
 import { ProtectedRoute } from './components/admin/ProtectedRoute';
+
 
 // Public Layout Components
 import { Navbar } from './components/Navbar';
@@ -46,7 +46,6 @@ const PublicLayout = () => {
 
 export const App = () => {
   return (
-    <ThemeProvider>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -82,7 +81,6 @@ export const App = () => {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
-    </ThemeProvider>
   );
 };
 
