@@ -18,12 +18,12 @@ const ensureAdminTableAndSeed = async () => {
         // Check if default admin exists
         const [rows] = await db.execute('SELECT * FROM admin_users WHERE username = ? LIMIT 1', ['admin']);
         if (rows.length === 0) {
-            const hashedPassword = hashPassword('admin123');
+            const hashedPassword = hashPassword('admin321');
             await db.execute(
                 'INSERT INTO admin_users (username, password, name, role) VALUES (?, ?, ?, ?)',
                 ['admin', hashedPassword, 'Administrator Adinko', 'admin']
             );
-            console.log('[Auth] Akun default admin berhasil diinisialisasi (username: admin, password: admin123)');
+            console.log('[Auth] Akun default admin berhasil diinisialisasi (username: admin, password: admin321)');
         }
     } catch (err) {
         console.warn('[Auth] ensureAdminTableAndSeed notice:', err.message);
