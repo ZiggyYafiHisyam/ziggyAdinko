@@ -1,28 +1,23 @@
 {
   "name": "metroproject1",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "ziggyAdinko"
-  },
+  "main": "src/index.js",
   "author": "Ziggy Yafi Hisyam",
   "license": "ISC",
+  "description": "Adinko x GhaziSportsHub website — Express + MySQL API serving a React SPA.",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "frontend:dev": "npm --prefix frontend run dev",
-    "frontend:build": "npm --prefix frontend run build",
-    "start:full": "npm run frontend:build && node src/index.js"
+    "build": "npm --prefix frontend install && npm --prefix frontend run build",
+    "start:full": "npm run build && node src/index.js"
   },
-  "description": "",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "multer": "^2.2.0",
-    "mysql2": "^3.23.2",
-    "nodemon": "^3.1.14",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "mysql2": "^3.23.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

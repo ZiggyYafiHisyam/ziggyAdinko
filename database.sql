@@ -1,3 +1,8 @@
+-- Canonical schema. Run this in MySQL Workbench against your local or Railway MySQL.
+-- DB name must match DB_NAME in .env (default: express_mysql).
+CREATE DATABASE IF NOT EXISTS express_mysql;
+USE express_mysql;
+
 CREATE TABLE IF NOT EXISTS kontak (
     id_kontak INT AUTO_INCREMENT PRIMARY KEY,
     kontak_badge VARCHAR(100),

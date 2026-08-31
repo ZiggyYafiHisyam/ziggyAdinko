@@ -19,18 +19,8 @@ app.use(express.json({ strict: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware);
 
-// Authentication Routes
-app.use('/auth', authRoutes);
+// API Routes — the only backend surface. All clients call these under /api/*.
 app.use('/api/auth', authRoutes);
-
-// Public & Admin Resource Routes
-app.use('/home', homeRoutes);
-app.use('/about', aboutRoutes);
-app.use('/layanan', layananRoutes);
-app.use('/portofolio', portofolioRoutes);
-app.use('/testimoni', testimoniRoutes);
-app.use('/kontak', kontakRoutes);
-
 app.use('/api/home', homeRoutes);
 app.use('/api/about', aboutRoutes);
 app.use('/api/layanan', layananRoutes);
@@ -57,7 +47,6 @@ const handleUpload = (req, res) => {
   return res.status(400).json({ message: 'Tidak ada file yang diunggah.' });
 };
 
-app.post('/upload', upload.array('pictures', 10), handleUpload);
 app.post('/api/upload', upload.array('pictures', 10), handleUpload);
 
 // Serve Frontend SPA
@@ -67,7 +56,7 @@ const indexPath = path.join(frontendDist, 'index.html');
 
 app.use(express.static(frontendDist));
 
-app.get(/^\/(?!api(?:\/|$)|auth(?:\/|$)|home(?:\/|$)|about(?:\/|$)|layanan(?:\/|$)|portofolio(?:\/|$)|testimoni(?:\/|$)|kontak(?:\/|$)|upload(?:\/|$)|assets(?:\/|$)).*/, (req, res) => {
+app.get(/^\/(?!api\/|assets\/).*/, (req, res) => {
   if (fs.existsSync(indexPath)) {
     res.sendFile('index.html', { root: frontendDist }, (err) => {
       if (err && !res.headersSent) {
@@ -80,22 +69,20 @@ app.get(/^\/(?!api(?:\/|$)|auth(?:\/|$)|home(?:\/|$)|about(?:\/|$)|layanan(?:\/|
       <html lang="id">
         <head>
           <meta charset="UTF-8" />
-          <title>Adinko Admin - Development Mode</title>
+          <title>Adinko - Frontend belum di-build</title>
           <style>
             body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #F8F9FA; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
             .card { background: #FFFFFF; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 500px; text-align: center; }
             h2 { color: #121212; margin-top: 0; }
             p { color: #667085; line-height: 1.6; }
-            .btn { display: inline-block; margin-top: 16px; padding: 12px 24px; background: #486F0C; color: #FFF; text-decoration: none; border-radius: 8px; font-weight: bold; }
             code { background: #F2F4F7; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
           </style>
         </head>
         <body>
           <div class="card">
-            <h2>Mode Development Aktif</h2>
-            <p>Untuk mengakses <strong>Panel Admin</strong> atau <strong>Website Publik</strong> dalam mode dev, silakan buka frontend melalui server Vite:</p>
-            <a class="btn" href="http://localhost:5173/admin/login">Buka http://localhost:5173/admin/login</a>
-            <p style="margin-top: 24px; font-size: 0.85em;">Atau jalankan <code>npm run frontend:build</code> jika ingin melayani langsung melalui port Express.</p>
+            <h2>Frontend belum di-build</h2>
+            <p>Folder <code>frontend/dist</code> belum ada. Jalankan perintah berikut dari root project, lalu muat ulang halaman ini:</p>
+            <p><code>npm run build &amp;&amp; node src/index.js</code></p>
           </div>
         </body>
       </html>

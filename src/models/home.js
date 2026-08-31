@@ -12,12 +12,4 @@ const createMessage = (body) => {
     return db.execute(SQLQuery, [name, noWA, location, kebutuhan, details]);
 };
 
-//kalo belum connect db
-// const getHome = (req, res) => {
-//     res.json({
-//         message: 'Welcome to Adinko Home Page by Zeke',
-//         data: null
-//     });
-// };
-
 module.exports = { getHome, createMessage };
