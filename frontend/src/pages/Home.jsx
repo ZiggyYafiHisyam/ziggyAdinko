@@ -15,11 +15,40 @@ export const Home = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('Semua');
   const [homeContent, setHomeContent] = useState(null);
+  const [reviews, setReviews] = useState(testimonialsData);
 
   useEffect(() => {
     getRows('/home').then((rows) => {
       if (rows[0]) setHomeContent(rows[0]);
     }).catch(() => {});
+
+    // Try fetching from Google Maps API first
+    getRows('/testimoni/google').then((rows) => {
+      if (rows.length) {
+        setReviews(rows.map((item) => ({
+          ...item,
+          id: item.id ?? item.id_message,
+          name: item.name,
+          category: item.category ?? item.kebutuhan ?? 'Google Maps',
+          text: item.text ?? item.details ?? '',
+          rating: Number(item.rating ?? 5),
+          time: item.time ?? item.created_at ?? item.time_text ?? '',
+        })));
+      }
+    }).catch(() => {
+      // Fallback to database testimonials if Google Maps fails
+      getRows('/testimoni').then((rows) => {
+        if (rows.length) setReviews(rows.map((item) => ({
+          ...item,
+          id: item.id ?? item.id_message,
+          name: item.name,
+          category: item.category ?? item.kebutuhan ?? 'Lainnya',
+          text: item.text ?? item.details ?? '',
+          rating: Number(item.rating ?? 5),
+          time: item.time ?? item.created_at ?? '',
+        })));
+      }).catch(() => {});
+    });
   }, []);
 
   const filterTabs = ['Semua', 'Taman Rumah', 'Mini Soccer', 'Futsal', 'Lapangan Lainnya'];
@@ -274,7 +303,7 @@ export const Home = () => {
 
           {/* 3 Review Cards Grid */}
           <div className="testimonials-grid">
-            {testimonialsData.slice(0, 3).map((review) => (
+            {reviews.slice(0, 3).map((review) => (
               <ReviewCard key={review.id} review={review} variant="dark" />
             ))}
           </div>

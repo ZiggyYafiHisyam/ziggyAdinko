@@ -61,9 +61,54 @@ const deleteTestimoni = async (req, res) => {
     }
 };
 
+const getGoogleReviews = async (req, res) => {
+    const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+    const placeId = process.env.GOOGLE_PLACE_ID;
+
+    if (!apiKey || !placeId) {
+        return res.status(500).json({
+            message: 'Google Maps API Key or Place ID is not configured.',
+            data: []
+        });
+    }
+
+    try {
+        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,reviews&key=${apiKey}&reviews_sort=newest&language=id`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.status !== 'OK') {
+            throw new Error(`Google API Error: ${data.status} - ${data.error_message || ''}`);
+        }
+
+        const reviews = data.result.reviews || [];
+        const formattedReviews = reviews.map((review, index) => ({
+            id: `google-${index}`,
+            name: review.author_name,
+            time_text: review.relative_time_description,
+            time: new Date(review.time * 1000).toISOString(),
+            category: 'Google Maps',
+            rating: review.rating,
+            avatar: review.profile_photo_url,
+            text: review.text
+        }));
+
+        res.json({
+            message: 'Google Maps reviews retrieved successfully',
+            data: formattedReviews
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error fetching Google Maps reviews',
+            serverMessage: error.message || error
+        });
+    }
+};
+
 module.exports = {
     getTestimoni,
     createTestimoni,
     updateTestimoni,
-    deleteTestimoni
+    deleteTestimoni,
+    getGoogleReviews
 };

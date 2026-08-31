@@ -12,17 +12,32 @@ export const Testimoni = () => {
   const [reviews, setReviews] = useState(testimonialsData);
 
   useEffect(() => {
-    getRows('/testimoni').then((rows) => {
-      if (rows.length) setReviews(rows.map((item) => ({
-        ...item,
-        id: item.id ?? item.id_message,
-        name: item.name,
-        category: item.category ?? item.kebutuhan ?? 'Lainnya',
-        text: item.text ?? item.details ?? '',
-        rating: Number(item.rating ?? 5),
-        time: item.time ?? item.created_at ?? '',
-      })));
-    }).catch(() => {});
+    // Try fetching from Google Maps API first
+    getRows('/testimoni/google').then((rows) => {
+      if (rows.length) {
+        setReviews(rows.map((item) => ({
+          id: item.id ?? item.id_message,
+          name: item.name,
+          category: item.category ?? item.kebutuhan ?? 'Google Maps',
+          text: item.text ?? item.details ?? '',
+          rating: Number(item.rating ?? 5),
+          time: item.time ?? item.created_at ?? item.time_text ?? '',
+        })));
+      }
+    }).catch(() => {
+      // Fallback to database testimonials if Google Maps fails (e.g. no API key)
+      getRows('/testimoni').then((rows) => {
+        if (rows.length) setReviews(rows.map((item) => ({
+          ...item,
+          id: item.id ?? item.id_message,
+          name: item.name,
+          category: item.category ?? item.kebutuhan ?? 'Lainnya',
+          text: item.text ?? item.details ?? '',
+          rating: Number(item.rating ?? 5),
+          time: item.time ?? item.created_at ?? '',
+        })));
+      }).catch(() => {});
+    });
   }, []);
 
   const filterTabs = ['Semua', 'Rumput Sintetis', 'Lapangan Olahraga', 'Vertical Garden'];

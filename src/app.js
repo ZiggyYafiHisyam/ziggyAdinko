@@ -38,19 +38,26 @@ app.use('/api/testimoni', testimoniRoutes);
 app.use('/api/kontak', kontakRoutes);
 
 const handleUpload = (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: 'Tidak ada file yang diunggah.' });
+  if (req.files && req.files.length > 0) {
+    const fileUrls = req.files.map(f => `/assets/${f.filename}`);
+    return res.status(201).json({ 
+      message: 'File berhasil diunggah', 
+      url: fileUrls.join(','), 
+      filename: req.files.map(f => f.filename).join(',') 
+    });
+  } else if (req.file) {
+    const fileUrl = `/assets/${req.file.filename}`;
+    return res.status(201).json({ 
+      message: 'File berhasil diunggah', 
+      url: fileUrl, 
+      filename: req.file.filename 
+    });
   }
-  const fileUrl = `/assets/${req.file.filename}`;
-  res.status(201).json({ 
-    message: 'File berhasil diunggah', 
-    url: fileUrl, 
-    filename: req.file.filename 
-  });
+  return res.status(400).json({ message: 'Tidak ada file yang diunggah.' });
 };
 
-app.post('/upload', upload.single('pictures'), handleUpload);
-app.post('/api/upload', upload.single('pictures'), handleUpload);
+app.post('/upload', upload.array('pictures', 10), handleUpload);
+app.post('/api/upload', upload.array('pictures', 10), handleUpload);
 
 // Serve Frontend SPA
 const fs = require('fs');
