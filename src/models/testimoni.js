@@ -1,26 +1,6 @@
 const db = require('../config/database');
 
-const ensureTestimoniTable = async () => {
-    try {
-        await db.execute(`
-            CREATE TABLE IF NOT EXISTS testimoni (
-                id_testimoni INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                time_text VARCHAR(100),
-                category VARCHAR(100),
-                rating INT DEFAULT 5,
-                avatar VARCHAR(255),
-                text TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-            )
-        `);
-    } catch (err) {
-        console.warn('ensureTestimoniTable warning:', err.message);
-    }
-};
-
-ensureTestimoniTable();
+// The `testimoni` table is created by src/config/bootstrap.js.
 
 const getTestimoni = () => {
     const SQLQuery = 'SELECT * FROM testimoni ORDER BY id_testimoni DESC';

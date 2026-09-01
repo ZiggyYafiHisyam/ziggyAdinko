@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bootstrap = require('./config/bootstrap');
 const upload = require('./middleware/multer');
 const sessionMiddleware = require('./middleware/session');
 const authRoutes = require('./routes/auth');
@@ -13,11 +14,24 @@ const middlewareLogRequest = require('./middleware/logs');
 
 const app = express();
 
+// Kick off schema creation + seeding immediately; the guard below awaits it.
+bootstrap().catch(() => { /* logged inside bootstrap; retried per-request */ });
+
 app.use(middlewareLogRequest);
-app.use('/assets', express.static('public/images'));
+app.use('/assets', express.static(path.resolve(__dirname, '../public/images')));
 app.use(express.json({ strict: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware);
+
+// Make sure the database is ready before any API request touches it.
+app.use('/api', async (req, res, next) => {
+  try {
+    await bootstrap();
+    next();
+  } catch (err) {
+    res.status(503).json({ message: 'Database not ready', serverMessage: err.message });
+  }
+});
 
 // API Routes — the only backend surface. All clients call these under /api/*.
 app.use('/api/auth', authRoutes);

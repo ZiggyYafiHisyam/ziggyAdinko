@@ -19,12 +19,23 @@ const updateKontak = (data) => {
         trust_survey
     } = data;
 
+    // Upsert the single settings row (id_kontak = 1) so it works even on a fresh DB.
     const SQLQuery = `
-        UPDATE kontak 
-        SET kontak_title = ?, kontak_description = ?, button_primary_text = ?, button_primary_link = ?, 
-            button_secondary_text = ?, button_secondary_link = ?, trust_projects = ?, trust_expert = ?, 
-            trust_material = ?, trust_survey = ?
-        WHERE id_kontak = 1
+        INSERT INTO kontak
+            (id_kontak, kontak_title, kontak_description, button_primary_text, button_primary_link,
+             button_secondary_text, button_secondary_link, trust_projects, trust_expert, trust_material, trust_survey)
+        VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+            kontak_title = VALUES(kontak_title),
+            kontak_description = VALUES(kontak_description),
+            button_primary_text = VALUES(button_primary_text),
+            button_primary_link = VALUES(button_primary_link),
+            button_secondary_text = VALUES(button_secondary_text),
+            button_secondary_link = VALUES(button_secondary_link),
+            trust_projects = VALUES(trust_projects),
+            trust_expert = VALUES(trust_expert),
+            trust_material = VALUES(trust_material),
+            trust_survey = VALUES(trust_survey)
     `;
     return db.execute(SQLQuery, [
         kontak_title || 'Hubungi Kami',

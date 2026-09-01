@@ -1,39 +1,33 @@
 import { useState } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
-import { 
-  LayoutDashboard, 
-  FolderKanban, 
-  Layers, 
-  MessageSquare, 
-  Mail, 
-  Settings, 
-  LogOut, 
+import {
+  LayoutDashboard,
+  FolderKanban,
+  Layers,
+  MessageSquare,
+  Mail,
+  Settings,
+  LogOut,
   ExternalLink,
   Menu,
   X,
-  User,
-  Sun,
-  Moon
+  User
 } from 'lucide-react';
 import { AdinkoLogo } from '../../assets/Logos';
 
 export const AdminLayout = () => {
   const { user, logout } = useAuth();
-  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Theme-aware colors
-  const bg = isDark ? '#101E13' : '#FFFFFF';
-  const sidebarBg = isDark ? '#101E13' : '#1C2A1E';
-  const mainBg = isDark ? '#0D1710' : '#F0F4F1';
-  const cardBg = isDark ? '#172B1C' : '#FFFFFF';
-  const borderColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
-  const textMuted = isDark ? '#88A392' : '#556B5E';
-  const navLinkColor = isDark ? '#B2C4B8' : '#CBD8D1';
+  // Admin panel palette (single light theme)
+  const sidebarBg = '#1C2A1E';
+  const mainBg = '#F0F4F1';
+  const borderColor = 'rgba(0,0,0,0.1)';
+  const textMuted = '#556B5E';
+  const navLinkColor = '#CBD8D1';
 
   const handleLogout = async () => {
     await logout();
@@ -196,7 +190,7 @@ export const AdminLayout = () => {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div style={{ background: isDark ? '#172B1C' : '#1C2A1E', padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ background: '#1C2A1E', padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -246,38 +240,6 @@ export const AdminLayout = () => {
           <Outlet />
         </main>
       </div>
-
-      {/* ===== Theme Toggle FAB ===== */}
-      <button
-        onClick={toggleTheme}
-        title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        style={{
-          position: 'fixed',
-          bottom: '28px',
-          right: '28px',
-          zIndex: 9999,
-          width: '48px',
-          height: '48px',
-          borderRadius: '50%',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: isDark
-            ? 'linear-gradient(135deg, #F5E642 0%, #FFB347 100%)'
-            : 'linear-gradient(135deg, #1C2A1E 0%, #314E0C 100%)',
-          color: isDark ? '#1C1000' : '#FFFFFF',
-          boxShadow: isDark
-            ? '0 4px 24px rgba(245, 230, 66, 0.55)'
-            : '0 4px 24px rgba(0, 0, 0, 0.45)',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        }}
-        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.15)'; }}
-        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-      >
-        {isDark ? <Sun size={21} strokeWidth={2.5} /> : <Moon size={21} strokeWidth={2.5} />}
-      </button>
     </div>
   );
 };

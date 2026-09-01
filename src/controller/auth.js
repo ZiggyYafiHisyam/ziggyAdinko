@@ -20,7 +20,7 @@ const login = async (req, res) => {
         }
 
         const sessionUser = {
-            id: user.id_admin || user.id_user,
+            id: user.id_user,
             username: user.username,
             name: user.name,
             role: user.role

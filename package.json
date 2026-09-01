@@ -5,10 +5,13 @@
   "author": "Ziggy Yafi Hisyam",
   "license": "ISC",
   "description": "Adinko x GhaziSportsHub website — Express + MySQL API serving a React SPA.",
+  "engines": {
+    "node": ">=18.18"
+  },
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "build": "npm --prefix frontend install && npm --prefix frontend run build",
+    "build": "cd frontend && npm install && npm run build",
     "start:full": "npm run build && node src/index.js"
   },
   "dependencies": {
