@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { testimonialsData } from '../data/siteData';
+import { ArrowRight, Star, ExternalLink } from 'lucide-react';
+import { testimonialsData, siteConfig } from '../data/siteData';
 import { ReviewCard } from '../components/ReviewCard';
 import { HeroFloatingBadge } from '../components/FloatingCta';
 import { getRows } from '../api';
@@ -72,7 +72,48 @@ export const Testimoni = () => {
         <HeroFloatingBadge />
       </section>
 
-      {/* 2. TESTIMONIALS FILTER & GRID */}
+      {/* 2. LEAVE A GOOGLE MAPS REVIEW CTA */}
+      <section style={{ padding: '56px 0', background: 'var(--green-50)' }}>
+        <div className="container">
+          <div style={{
+            maxWidth: '760px',
+            margin: '0 auto',
+            background: 'var(--white)',
+            border: '1px solid var(--green-200, #D7E5C4)',
+            borderRadius: '20px',
+            padding: '36px 28px',
+            textAlign: 'center',
+            boxShadow: '0 8px 30px rgba(16, 30, 19, 0.08)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', color: '#F59E0B', marginBottom: '14px' }}>
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={22} fill="#F59E0B" color="#F59E0B" />
+              ))}
+            </div>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--green-900, #101E13)', marginBottom: '8px' }}>
+              Puas dengan hasil kerja kami?
+            </h2>
+            <p style={{ color: '#667085', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '520px', margin: '0 auto 22px auto' }}>
+              Bagikan pengalaman Anda di Google Maps. Ulasan Anda membantu calon pelanggan
+              lain di Pekanbaru menemukan dan mempercayai Adinko Rumput Sintetis.
+            </p>
+            <a
+              href={siteConfig.contacts.googleReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary-hero"
+              style={{ textDecoration: 'none', padding: '13px 26px', fontSize: '0.95rem' }}
+            >
+              <span>Leave us a review on GMaps!</span>
+              <span className="arrow-circle">
+                <ExternalLink size={14} />
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. TESTIMONIALS FILTER & GRID */}
       <section style={{ padding: '80px 0', background: 'var(--white)' }}>
         <div className="container">
           {/* Interactive Filter Pills */}

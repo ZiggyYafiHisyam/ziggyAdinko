@@ -10,6 +10,9 @@ export const siteConfig = {
     instagramAdinko: "@adinko.pekanbaru",
     instagramGhazi: "@ghazisportshub",
     mapsUrl: "https://maps.google.com/?q=Jl.+Todak+No.113+Tangkerang+Barat+Pekanbaru",
+    googlePlaceId: "ChIJWe2SmH6v1TER4QZMUcf2Tcw",
+    // Deep link that opens the Google Maps "write a review" dialog for Adinko rumput sintetis
+    googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJWe2SmH6v1TER4QZMUcf2Tcw",
     directWaNumber: "6285264456566"
   },
   stats: [
