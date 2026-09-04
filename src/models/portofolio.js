@@ -13,13 +13,13 @@ const getPortofolioById = (id) => {
 const createPortofolio = (data) => {
     const { title, category, location, description, image } = data;
     const SQLQuery = 'INSERT INTO portofolio (title, category, location, description, image) VALUES (?, ?, ?, ?, ?)';
-    return db.execute(SQLQuery, [title, category, location, description, image]);
+    return db.execute(SQLQuery, [title, category, location ?? null, description ?? null, image ?? null]);
 };
 
 const updatePortofolio = (id, data) => {
     const { title, category, location, description, image } = data;
     const SQLQuery = 'UPDATE portofolio SET title = ?, category = ?, location = ?, description = ?, image = ? WHERE id_portofolio = ?';
-    return db.execute(SQLQuery, [title, category, location, description, image, id]);
+    return db.execute(SQLQuery, [title, category, location ?? null, description ?? null, image ?? null, id]);
 };
 
 const deletePortofolio = (id) => {

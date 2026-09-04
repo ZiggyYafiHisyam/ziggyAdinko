@@ -1,5 +1,5 @@
 const requireAuth = (req, res, next) => {
-    if (req.user || (req.session && req.session.user)) {
+    if (req.user) {
         return next();
     }
     return res.status(401).json({

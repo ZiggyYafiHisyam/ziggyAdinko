@@ -47,6 +47,7 @@ in the dashboard (do **not** commit `.env`).
 | `DB_PASSWORD` | yes | your MySQL password |
 | `DB_NAME` | yes | `express_mysql` |
 | `DB_SSL` | no | set `true` for Railway / any hosted MySQL that needs TLS |
+| `SESSION_SECRET` | **yes in production** | long random string used to sign the admin login cookie. Without it, admins get logged out between serverless requests on Vercel. Generate: `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` |
 | `GOOGLE_MAPS_API_KEY` | no | only for `GET /api/testimoni/google` |
 | `GOOGLE_PLACE_ID` | no | only for `GET /api/testimoni/google` |
 
@@ -112,12 +113,13 @@ whenever you change frontend code — there is no separate dev server.
    build = `npm run build`, start = `npm start`.
 4. **Set service variables**:
    ```
-   DB_HOST     = <MYSQLHOST>
-   DB_PORT     = <MYSQLPORT>
-   DB_USER     = <MYSQLUSER>
-   DB_PASSWORD = <MYSQLPASSWORD>
-   DB_NAME     = <MYSQLDATABASE>
-   DB_SSL      = true
+   DB_HOST        = <MYSQLHOST>
+   DB_PORT        = <MYSQLPORT>
+   DB_USER        = <MYSQLUSER>
+   DB_PASSWORD    = <MYSQLPASSWORD>
+   DB_NAME        = <MYSQLDATABASE>
+   DB_SSL         = true
+   SESSION_SECRET = <long random string>
    ```
    (Leave `PORT` unset — Railway injects it.)
 5. Deploy. Visit the generated URL; `/admin/login` works with `admin` / `admin321`.
@@ -140,9 +142,13 @@ at the **same Railway MySQL** from section 5.
 2. **Environment Variables** (Project → Settings → Environment Variables):
    ```
    DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME   = your Railway MySQL values
-   DB_SSL = true
+   DB_SSL         = true
+   SESSION_SECRET = a long random string (REQUIRED — without it admins get
+                    logged out between requests because Vercel runs many instances)
    GOOGLE_MAPS_API_KEY, GOOGLE_PLACE_ID              = optional
    ```
+   Generate the secret with:
+   `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
 3. Deploy. Open the URL, then `/admin/login`.
 
 Notes for Vercel:

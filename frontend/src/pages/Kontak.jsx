@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { MapPin, Phone, MessageCircle, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { InstagramIcon } from '../assets/Icons';
 import { siteConfig } from '../data/siteData';
 import { ContactForm } from '../components/ContactForm';
-import { HeroFloatingBadge } from '../components/FloatingCta';
 import { getRows } from '../api';
 
 export const Kontak = () => {
@@ -38,20 +37,8 @@ export const Kontak = () => {
             <p className="hero-subtitle">
               Konsultasikan kebutuhan Anda sekarang juga. Tim kami siap membantu dari survei awal, perencanaan, pengerjaan, hingga purna jual.
             </p>
-            <div className="hero-actions">
-              <button 
-                onClick={handleWaHeroClick}
-                className="btn-primary-hero"
-                style={{ background: '#25D366' }}
-              >
-                <MessageCircle size={20} />
-                <span>Konsultasi Gratis via WhatsApp</span>
-              </button>
-            </div>
           </div>
         </div>
-
-        <HeroFloatingBadge />
       </section>
 
       {/* 2. MAIN CONTACT DETAILS & FORM */}

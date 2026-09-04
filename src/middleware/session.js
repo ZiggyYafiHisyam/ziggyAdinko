@@ -1,4 +1,4 @@
-const { getSession, createSession, destroySession } = require('../utils/security');
+const { verifySession, signSession, SESSION_TTL_MS } = require('../utils/security');
 
 const parseCookies = (cookieHeader = '') => {
     const list = {};
@@ -16,30 +16,27 @@ const parseCookies = (cookieHeader = '') => {
 
 const sessionMiddleware = (req, res, next) => {
     const cookies = parseCookies(req.headers.cookie);
-    const sid = cookies.sid;
-    const session = getSession(sid);
+    const user = verifySession(cookies.sid);
 
-    req.sessionId = sid;
-    req.session = session || {};
-    req.user = session ? session.user : null;
+    req.user = user;
+    req.session = user ? { user } : {};
 
-    req.login = (user) => {
-        const newSid = createSession(user);
-        req.sessionId = newSid;
-        req.session = { user };
-        req.user = user;
-        
-        // Set HTTP-only session cookie
-        res.setHeader('Set-Cookie', `sid=${newSid}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`);
+    // Secure flag only over HTTPS (Vercel / Railway); plain cookie for local http.
+    const isHttps = req.secure || req.headers['x-forwarded-proto'] === 'https';
+    const secure = isHttps ? '; Secure' : '';
+    const maxAge = Math.floor(SESSION_TTL_MS / 1000);
+
+    req.login = (sessionUser) => {
+        const token = signSession(sessionUser);
+        req.user = sessionUser;
+        req.session = { user: sessionUser };
+        res.setHeader('Set-Cookie', `sid=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure}`);
     };
 
     req.logout = () => {
-        if (req.sessionId) {
-            destroySession(req.sessionId);
-        }
-        req.session = {};
         req.user = null;
-        res.setHeader('Set-Cookie', `sid=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`);
+        req.session = {};
+        res.setHeader('Set-Cookie', `sid=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure}`);
     };
 
     next();

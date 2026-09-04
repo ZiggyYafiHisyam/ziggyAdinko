@@ -54,7 +54,7 @@ const updateKontak = (data) => {
 const createMessage = (body) => {
     const { name, noWA, location, kebutuhan, details } = body;
     const SQLQuery = `INSERT INTO messages (name, noWA, location, kebutuhan, details) VALUES (?, ?, ?, ?, ?)`;
-    return db.execute(SQLQuery, [name, noWA, location, kebutuhan, details]);
+    return db.execute(SQLQuery, [name, noWA, location ?? null, kebutuhan, details ?? null]);
 };
 
 const getMessages = () => {

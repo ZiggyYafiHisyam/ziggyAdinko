@@ -27,7 +27,9 @@ export const AdminLogin = () => {
       await login(username, password);
       navigate('/admin/dashboard');
     } catch (err) {
-      setError(err.message || 'Login gagal. Periksa kembali username dan password Anda.');
+      const detail = err.data?.serverMessage || err.data?.code;
+      const base = err.message || 'Login gagal. Periksa kembali username dan password Anda.';
+      setError(detail ? `${base} — ${detail}` : base);
     } finally {
       setLoading(false);
     }

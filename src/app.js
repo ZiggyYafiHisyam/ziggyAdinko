@@ -23,13 +23,39 @@ app.use(express.json({ strict: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware);
 
+// Diagnostics — no auth, does NOT wait for bootstrap so it can report the raw
+// connection error. Open https://<your-app>/api/health in a browser.
+app.get('/api/health', async (req, res) => {
+  const out = {
+    server: 'ok',
+    db: 'unknown',
+    dbName: process.env.DB_NAME || '(not set)',
+    dbHost: process.env.DB_HOST || '(not set)',
+    ssl: process.env.DB_SSL === 'true'
+  };
+  try {
+    const db = require('./config/database');
+    const [rows] = await db.query('SELECT 1 AS ok');
+    out.db = rows && rows[0] && rows[0].ok === 1 ? 'ok' : 'unexpected-response';
+  } catch (err) {
+    out.db = 'error';
+    out.code = err.code || err.errno || null;
+    out.error = err.message;
+  }
+  res.status(out.db === 'ok' ? 200 : 503).json(out);
+});
+
 // Make sure the database is ready before any API request touches it.
 app.use('/api', async (req, res, next) => {
   try {
     await bootstrap();
     next();
   } catch (err) {
-    res.status(503).json({ message: 'Database not ready', serverMessage: err.message });
+    res.status(503).json({
+      message: 'Database not ready',
+      code: err.code || err.errno || null,
+      serverMessage: err.message
+    });
   }
 });
 

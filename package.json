@@ -6,7 +6,7 @@
   "license": "ISC",
   "description": "Adinko x GhaziSportsHub website — Express + MySQL API serving a React SPA.",
   "engines": {
-    "node": ">=18.18"
+    "node": "22.x"
   },
   "scripts": {
     "start": "node src/index.js",

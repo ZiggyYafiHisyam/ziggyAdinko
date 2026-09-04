@@ -22,33 +22,28 @@ export const Home = () => {
       if (rows[0]) setHomeContent(rows[0]);
     }).catch(() => {});
 
-    // Try fetching from Google Maps API first
-    getRows('/testimoni/google').then((rows) => {
-      if (rows.length) {
-        setReviews(rows.map((item) => ({
-          ...item,
-          id: item.id ?? item.id_message,
-          name: item.name,
-          category: item.category ?? item.kebutuhan ?? 'Google Maps',
-          text: item.text ?? item.details ?? '',
-          rating: Number(item.rating ?? 5),
-          time: item.time ?? item.created_at ?? item.time_text ?? '',
-        })));
-      }
-    }).catch(() => {
-      // Fallback to database testimonials if Google Maps fails
-      getRows('/testimoni').then((rows) => {
-        if (rows.length) setReviews(rows.map((item) => ({
-          ...item,
-          id: item.id ?? item.id_message,
-          name: item.name,
-          category: item.category ?? item.kebutuhan ?? 'Lainnya',
-          text: item.text ?? item.details ?? '',
-          rating: Number(item.rating ?? 5),
-          time: item.time ?? item.created_at ?? '',
-        })));
-      }).catch(() => {});
+    const normalize = (item, fallbackCategory) => ({
+      ...item,
+      id: item.id ?? item.id_testimoni ?? item.id_message,
+      name: item.name,
+      category: item.category ?? item.kebutuhan ?? fallbackCategory,
+      text: item.text ?? item.details ?? '',
+      rating: Number(item.rating ?? 5),
+      time: item.time ?? item.created_at ?? item.time_text ?? '',
     });
+
+    const loadReviews = async () => {
+      try {
+        const g = await getRows('/testimoni/google');
+        if (g.length) { setReviews(g.map((i) => normalize(i, 'Google Maps'))); return; }
+      } catch { /* ignore */ }
+      try {
+        const d = await getRows('/testimoni');
+        if (d.length) { setReviews(d.map((i) => normalize(i, 'Lainnya'))); return; }
+      } catch { /* ignore */ }
+    };
+
+    loadReviews();
   }, []);
 
   const filterTabs = ['Semua', 'Taman Rumah', 'Mini Soccer', 'Futsal', 'Lapangan Lainnya'];

@@ -18,6 +18,7 @@ export const ContactForm = ({ title = "Kirim Pesan Sekarang" }) => {
   const [submitted, setSubmitted] = useState(false);
   const [waLink, setWaLink] = useState('');
   const [submitError, setSubmitError] = useState('');
+  const [savedToServer, setSavedToServer] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +50,8 @@ Mohon informasi estimasi biaya dan jadwal survei lapangan. Terima kasih!`;
     
     setWaLink(generatedWaUrl);
 
-    // Kirim data ke backend database MySQL (jika server aktif)
+    // Simpan pesan ke database (untuk daftar "Pesan Konsultasi" di admin).
+    // Kalau gagal, tetap lanjut ke WhatsApp tapi tandai supaya bisa diberitahu ke user.
     try {
       await fetchApi('/kontak', {
         method: 'POST',
@@ -61,8 +63,10 @@ Mohon informasi estimasi biaya dan jadwal survei lapangan. Terima kasih!`;
           details: formData.keterangan,
         }),
       });
+      setSavedToServer(true);
     } catch (err) {
-      console.warn('Catatan: Tidak dapat menyimpan ke database server, tetap melanjutkan ke WhatsApp:', err);
+      setSavedToServer(false);
+      console.warn('Tidak dapat menyimpan pesan ke server, tetap melanjutkan ke WhatsApp:', err);
     }
 
     setIsSubmitting(false);
@@ -96,9 +100,15 @@ Mohon informasi estimasi biaya dan jadwal survei lapangan. Terima kasih!`;
           <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#121212', marginBottom: '8px' }}>
             Pesan Konsultasi Siap Dikirim!
           </h4>
-          <p style={{ fontSize: '0.9rem', color: '#667085', marginBottom: '20px', lineHeight: '1.5' }}>
+          <p style={{ fontSize: '0.9rem', color: '#667085', marginBottom: savedToServer ? '20px' : '12px', lineHeight: '1.5' }}>
             WhatsApp sedang dibuka dengan template pesan yang telah Anda isi. Jika WhatsApp belum terbuka otomatis, silakan klik tombol di bawah:
           </p>
+
+          {!savedToServer && (
+            <p style={{ fontSize: '0.8rem', color: '#B54708', background: '#FFFAEB', border: '1px solid #FEDF89', borderRadius: '8px', padding: '8px 12px', marginBottom: '20px', lineHeight: '1.5' }}>
+              Catatan: pesan Anda belum tersimpan di sistem kami, tetapi tetap bisa dikirim lewat WhatsApp di bawah ini.
+            </p>
+          )}
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
             <a

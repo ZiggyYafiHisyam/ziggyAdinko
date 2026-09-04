@@ -65,42 +65,59 @@ const getGoogleReviews = async (req, res) => {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
     const placeId = process.env.GOOGLE_PLACE_ID;
 
+    // This is an optional enrichment — never fail the request. Callers fall back
+    // to database / static testimonials when `data` is empty.
     if (!apiKey || !placeId) {
-        return res.status(500).json({
+        return res.json({
             message: 'Google Maps API Key or Place ID is not configured.',
             data: []
         });
     }
 
     try {
-        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,reviews&key=${apiKey}&reviews_sort=newest&language=id`;
-        const response = await fetch(url);
+        // Places API (New) — the legacy maps.googleapis.com/maps/api/place endpoint
+        // is disabled for projects created after March 2025.
+        const url = `https://places.googleapis.com/v1/places/${placeId}?languageCode=id`;
+        const response = await fetch(url, {
+            headers: {
+                'X-Goog-Api-Key': apiKey,
+                'X-Goog-FieldMask': 'id,displayName,rating,reviews'
+            }
+        });
         const data = await response.json();
 
-        if (data.status !== 'OK') {
-            throw new Error(`Google API Error: ${data.status} - ${data.error_message || ''}`);
+        if (!response.ok) {
+            const msg = data && data.error ? `${data.error.status} - ${data.error.message}` : `HTTP ${response.status}`;
+            throw new Error(`Google Places API Error: ${msg}`);
         }
 
-        const reviews = data.result.reviews || [];
-        const formattedReviews = reviews.map((review, index) => ({
-            id: `google-${index}`,
-            name: review.author_name,
-            time_text: review.relative_time_description,
-            time: new Date(review.time * 1000).toISOString(),
-            category: 'Google Maps',
-            rating: review.rating,
-            avatar: review.profile_photo_url,
-            text: review.text
-        }));
+        const reviews = data.reviews || [];
+        const formattedReviews = reviews.map((review, index) => {
+            const author = review.authorAttribution || {};
+            return {
+                id: `google-${index}`,
+                name: author.displayName || 'Google User',
+                time_text: review.relativePublishTimeDescription || '',
+                time: review.publishTime || new Date().toISOString(),
+                category: 'Google Maps',
+                rating: review.rating || 5,
+                avatar: author.photoUri || '',
+                text: (review.text && review.text.text) || (review.originalText && review.originalText.text) || ''
+            };
+        });
 
         res.json({
             message: 'Google Maps reviews retrieved successfully',
             data: formattedReviews
         });
     } catch (error) {
-        res.status(500).json({
-            message: 'Error fetching Google Maps reviews',
-            serverMessage: error.message || error
+        // Log for visibility but return 200 with an empty list so the UI can
+        // gracefully fall back instead of surfacing an error.
+        console.warn('[testimoni] Google reviews unavailable:', error.message || error);
+        res.json({
+            message: 'Google Maps reviews unavailable',
+            serverMessage: error.message || error,
+            data: []
         });
     }
 };

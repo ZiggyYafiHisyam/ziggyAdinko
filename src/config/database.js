@@ -8,7 +8,11 @@ const poolConfig = {
     database: process.env.DB_NAME || 'express_mysql',
     waitForConnections: true,
     connectionLimit: 5,
-    queueLimit: 0
+    queueLimit: 0,
+    // Serverless (Vercel) talks to a remote DB over a proxy — give the first
+    // connection a bit more time and keep idle sockets alive between invocations.
+    connectTimeout: 20000,
+    enableKeepAlive: true
 };
 
 if (process.env.DB_SSL_CA) {

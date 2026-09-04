@@ -21,7 +21,15 @@ const createTestimoni = (data) => {
 const updateTestimoni = (id, data) => {
     const { name, time_text, category, rating, avatar, text } = data;
     const SQLQuery = 'UPDATE testimoni SET name = ?, time_text = ?, category = ?, rating = ?, avatar = ?, text = ? WHERE id_testimoni = ?';
-    return db.execute(SQLQuery, [name, time_text, category, rating, avatar, text, id]);
+    return db.execute(SQLQuery, [
+        name,
+        time_text ?? 'Baru saja',
+        category ?? 'Rumput Sintetis',
+        rating ?? 5,
+        avatar ?? '',
+        text,
+        id
+    ]);
 };
 
 const deleteTestimoni = (id) => {
