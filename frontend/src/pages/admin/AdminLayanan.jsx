@@ -129,10 +129,10 @@ export const AdminLayanan = () => {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#121212', marginBottom: '4px' }}>
+          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--ad-heading)', marginBottom: '4px' }}>
             Katalog Layanan
           </h1>
-          <p style={{ color: '#667085', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--ad-muted)', fontSize: '0.9rem' }}>
             Kelola daftar layanan Adinko (Rumput Sintetis & Lanskap) & GhaziSportsHub (Fasilitas Olahraga)
           </p>
         </div>
@@ -144,7 +144,7 @@ export const AdminLayanan = () => {
       </div>
 
       {/* Filter Bar */}
-      <div style={{ background: '#FFFFFF', padding: '16px 20px', borderRadius: '14px', border: '1px solid #EAECF0', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <div style={{ background: 'var(--ad-card)', padding: '16px 20px', borderRadius: '14px', border: '1px solid var(--ad-border)', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div style={{ display: 'flex', gap: '8px' }}>
           {['Semua', 'Adinko', 'GhaziSportsHub'].map(brand => (
             <button
@@ -157,8 +157,8 @@ export const AdminLayanan = () => {
                 fontWeight: 600,
                 border: 'none',
                 cursor: 'pointer',
-                background: brandFilter === brand ? 'var(--green-600)' : '#F2F4F7',
-                color: brandFilter === brand ? '#FFFFFF' : '#475467'
+                background: brandFilter === brand ? 'var(--green-600)' : 'var(--ad-soft)',
+                color: brandFilter === brand ? 'var(--ad-card)' : 'var(--ad-text)'
               }}
             >
               {brand}
@@ -167,22 +167,22 @@ export const AdminLayanan = () => {
         </div>
 
         <div style={{ position: 'relative', minWidth: '240px' }}>
-          <Search size={16} color="#98A2B3" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+          <Search size={16} color="var(--ad-faint)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
           <input
             type="text"
             placeholder="Cari judul layanan..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{ width: '100%', padding: '8px 12px 8px 36px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.85rem', outline: 'none' }}
+            style={{ width: '100%', padding: '8px 12px 8px 36px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.85rem', outline: 'none' }}
           />
         </div>
       </div>
 
       {/* Services Grid */}
       {loading ? (
-        <div style={{ padding: '60px', textAlign: 'center', color: '#667085' }}>Memuat layanan...</div>
+        <div style={{ padding: '60px', textAlign: 'center', color: 'var(--ad-muted)' }}>Memuat layanan...</div>
       ) : filteredItems.length === 0 ? (
-        <div style={{ padding: '60px', textAlign: 'center', background: '#FFFFFF', borderRadius: '16px', border: '1px dashed #D0D5DD', color: '#667085' }}>
+        <div style={{ padding: '60px', textAlign: 'center', background: 'var(--ad-card)', borderRadius: '16px', border: '1px dashed var(--ad-input-border)', color: 'var(--ad-muted)' }}>
           Tidak ada layanan ditemukan.
         </div>
       ) : (
@@ -191,20 +191,20 @@ export const AdminLayanan = () => {
             <div
               key={item.id_layanan || item.id}
               style={{
-                background: '#FFFFFF',
+                background: 'var(--ad-card)',
                 borderRadius: '14px',
-                border: '1px solid #EAECF0',
+                border: '1px solid var(--ad-border)',
                 overflow: 'hidden',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 display: 'flex',
                 flexDirection: 'column'
               }}
             >
-              <div style={{ height: '160px', position: 'relative', background: '#E4E7EC' }}>
+              <div style={{ height: '160px', position: 'relative', background: 'var(--ad-subtle)' }}>
                 {item.image ? (
                   <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#98A2B3' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--ad-faint)' }}>
                     <ImageIcon size={32} />
                   </div>
                 )}
@@ -225,25 +225,25 @@ export const AdminLayanan = () => {
 
               <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#121212', marginBottom: '6px' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--ad-heading)', marginBottom: '6px' }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: '0.82rem', color: '#667085', lineHeight: 1.5, marginBottom: '14px' }}>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--ad-muted)', lineHeight: 1.5, marginBottom: '14px' }}>
                     {item.description || 'Layanan profesional dengan material bergaransi dan pengerjaan presisi.'}
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid #F2F4F7', paddingTop: '10px' }}>
+                <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid var(--ad-soft)', paddingTop: '10px' }}>
                   <button
                     onClick={() => openEditModal(item)}
-                    style={{ flex: 1, padding: '7px', borderRadius: '6px', background: '#F4F7EE', color: 'var(--green-800)', border: 'none', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                    style={{ flex: 1, padding: '7px', borderRadius: '6px', background: 'var(--ad-accent-soft)', color: 'var(--ad-accent)', border: 'none', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
                   >
                     <Edit2 size={13} />
                     <span>Edit</span>
                   </button>
                   <button
                     onClick={() => handleDelete(item)}
-                    style={{ padding: '7px 10px', borderRadius: '6px', background: '#FEF3F2', color: '#B42318', border: 'none', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    style={{ padding: '7px 10px', borderRadius: '6px', background: 'var(--ad-danger-bg)', color: 'var(--ad-danger)', border: 'none', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >
                     <Trash2 size={13} />
                   </button>
@@ -256,26 +256,26 @@ export const AdminLayanan = () => {
 
       {/* Modal Form */}
       {isModalOpen && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '20px' }}>
-          <div style={{ background: '#FFFFFF', borderRadius: '20px', width: '100%', maxWidth: '520px', maxHeight: '90vh', overflowY: 'auto', padding: '28px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--ad-overlay)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '20px' }}>
+          <div style={{ background: 'var(--ad-card)', borderRadius: '20px', width: '100%', maxWidth: '520px', maxHeight: '90vh', overflowY: 'auto', padding: '28px', boxShadow: '0 20px 40px rgba(0,0,0,0.55)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#121212' }}>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--ad-heading)' }}>
                 {editingItem ? 'Edit Layanan' : 'Tambah Layanan Baru'}
               </h2>
-              <button onClick={() => setIsModalOpen(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#667085' }}>
+              <button onClick={() => setIsModalOpen(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--ad-muted)' }}>
                 <X size={20} />
               </button>
             </div>
 
             {error && (
-              <div style={{ background: '#FEF3F2', color: '#B42318', padding: '10px 14px', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '16px' }}>
+              <div style={{ background: 'var(--ad-danger-bg)', color: 'var(--ad-danger)', padding: '10px 14px', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '16px' }}>
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                   Nama Layanan *
                 </label>
                 <input
@@ -284,18 +284,18 @@ export const AdminLayanan = () => {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Contoh: Rumput Sintetis Taman Rumah"
-                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                   Brand / Kategori *
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.9rem' }}
                 >
                   <option value="Adinko">Adinko (Rumput Sintetis & Lanskap)</option>
                   <option value="GhaziSportsHub">GhaziSportsHub (Lapangan Olahraga)</option>
@@ -303,7 +303,7 @@ export const AdminLayanan = () => {
               </div>
 
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                   Deskripsi Layanan
                 </label>
                 <textarea
@@ -311,12 +311,12 @@ export const AdminLayanan = () => {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Deskripsi singkat keunggulan layanan..."
-                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                   Foto Layanan (URL atau Upload)
                 </label>
                 <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
@@ -325,9 +325,9 @@ export const AdminLayanan = () => {
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                     placeholder="URL gambar..."
-                    style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.85rem' }}
+                    style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.85rem' }}
                   />
-                  <label style={{ padding: '10px 14px', borderRadius: '8px', background: '#F2F4F7', color: '#344054', fontWeight: 600, fontSize: '0.82rem', cursor: uploading ? 'not-allowed' : 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                  <label style={{ padding: '10px 14px', borderRadius: '8px', background: 'var(--ad-soft)', color: 'var(--ad-text)', fontWeight: 600, fontSize: '0.82rem', cursor: uploading ? 'not-allowed' : 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                     {uploading ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
                     <span>Upload</span>
                     <input type="file" accept="image/*" onChange={handleFileUpload} style={{ display: 'none' }} disabled={uploading} />
@@ -336,7 +336,7 @@ export const AdminLayanan = () => {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-                <button type="button" onClick={() => setIsModalOpen(false)} style={{ padding: '10px 18px', borderRadius: '8px', background: '#F2F4F7', color: '#344054', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
+                <button type="button" onClick={() => setIsModalOpen(false)} style={{ padding: '10px 18px', borderRadius: '8px', background: 'var(--ad-soft)', color: 'var(--ad-text)', border: 'none', fontWeight: 600, cursor: 'pointer' }}>
                   Batal
                 </button>
                 <button type="submit" disabled={saving} className="btn-primary-hero" style={{ padding: '10px 20px', fontSize: '0.9rem' }}>

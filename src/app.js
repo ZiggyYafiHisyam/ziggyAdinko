@@ -10,6 +10,7 @@ const layananRoutes = require('./routes/layanan');
 const portofolioRoutes = require('./routes/portofolio');
 const testimoniRoutes = require('./routes/testimoni');
 const kontakRoutes = require('./routes/kontak');
+const pagesRoutes = require('./routes/pages');
 const middlewareLogRequest = require('./middleware/logs');
 
 const app = express();
@@ -67,6 +68,7 @@ app.use('/api/layanan', layananRoutes);
 app.use('/api/portofolio', portofolioRoutes);
 app.use('/api/testimoni', testimoniRoutes);
 app.use('/api/kontak', kontakRoutes);
+app.use('/api/pages', pagesRoutes);
 
 const handleUpload = (req, res) => {
   if (req.files && req.files.length > 0) {

@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, Menu, X, ArrowRight } from 'lucide-react';
 import { AdinkoLogo } from '../assets/Logos';
+import { usePageContent } from '../context/ContentContext';
 
 export const Navbar = () => {
+  const { c } = usePageContent('global');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
@@ -38,47 +40,47 @@ export const Navbar = () => {
               className={`nav-link ${isAboutActive ? 'active' : ''}`}
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              Tentang <ChevronDown size={14} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              {c('navbar.menuTentang')} <ChevronDown size={14} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
             </button>
             <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`}>
               <Link to="/tentang-adinko" className="dropdown-item">
-                Tentang Adinko
+                {c('navbar.menuTentangAdinko')}
               </Link>
               <Link to="/tentang-ghazi" className="dropdown-item">
-                Tentang GhaziSportsHub
+                {c('navbar.menuTentangGhazi')}
               </Link>
             </div>
           </li>
 
           <li>
             <Link to="/layanan" className={`nav-link ${location.pathname === '/layanan' ? 'active' : ''}`}>
-              Layanan
+              {c('navbar.menuLayanan')}
             </Link>
           </li>
           <li>
             <Link to="/portofolio" className={`nav-link ${location.pathname === '/portofolio' ? 'active' : ''}`}>
-              Portofolio
+              {c('navbar.menuPortofolio')}
             </Link>
           </li>
           <li>
             <Link to="/testimoni" className={`nav-link ${location.pathname === '/testimoni' ? 'active' : ''}`}>
-              Testimoni
+              {c('navbar.menuTestimoni')}
             </Link>
           </li>
           <li>
             <Link to="/kontak" className={`nav-link ${location.pathname === '/kontak' ? 'active' : ''}`}>
-              Kontak
+              {c('navbar.menuKontak')}
             </Link>
           </li>
         </ul>
 
         {/* Right CTA Button */}
-        <button 
-          onClick={() => navigate('/kontak')} 
+        <button
+          onClick={() => navigate('/kontak')}
           className="btn-nav-cta"
           aria-label="Konsultasi Sekarang"
         >
-          <span>Konsultasi</span>
+          <span>{c('navbar.cta')}</span>
           <span className="arrow-circle">
             <ArrowRight size={14} />
           </span>

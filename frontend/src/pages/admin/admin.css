@@ -1,0 +1,63 @@
+/* ============================================================
+   Admin panel — single dark theme.
+   Every admin screen uses these tokens (var(--ad-*)) instead of
+   hard-coded light colors. Imported once from AdminLayout.
+   ============================================================ */
+:root {
+  --ad-app:            #0C1310;   /* page background behind cards          */
+  --ad-sidebar:        #0F1A14;   /* sidebar / mobile header              */
+  --ad-card:           #15221B;   /* panels, cards, modals, inputs' parent */
+  --ad-subtle:         #1B2C22;   /* table header rows, muted fills        */
+  --ad-soft:           #20342A;   /* hover fills, secondary buttons        */
+  --ad-input:          #0E1712;   /* form field background                 */
+
+  --ad-border:         rgba(255, 255, 255, 0.09);
+  --ad-input-border:   rgba(255, 255, 255, 0.16);
+
+  --ad-heading:        #F3F8F4;
+  --ad-text:           #CBD9CF;
+  --ad-muted:          #93A99D;
+  --ad-faint:          #6E857A;
+
+  --ad-accent:         #9BD26A;   /* readable green on dark                */
+  --ad-accent-soft:    rgba(111, 168, 43, 0.16);
+
+  --ad-danger:         #FCA5A5;
+  --ad-danger-bg:      rgba(248, 113, 113, 0.12);
+  --ad-danger-border:  rgba(248, 113, 113, 0.30);
+
+  --ad-ok:             #86EFAC;
+  --ad-ok-bg:          rgba(74, 222, 128, 0.12);
+  --ad-ok-border:      rgba(74, 222, 128, 0.30);
+
+  --ad-shadow:         0 12px 34px rgba(0, 0, 0, 0.45);
+  --ad-overlay:        rgba(0, 0, 0, 0.62);
+}
+
+.admin-shell {
+  background: var(--ad-app);
+  color: var(--ad-text);
+  min-height: 100vh;
+}
+
+/* Inputs / selects / textareas inside the admin get dark chrome even
+   where the component only sets a border color. */
+.admin-shell input,
+.admin-shell select,
+.admin-shell textarea {
+  background: var(--ad-input);
+  color: var(--ad-heading);
+  border-color: var(--ad-input-border);
+}
+.admin-shell input::placeholder,
+.admin-shell textarea::placeholder { color: var(--ad-faint); }
+.admin-shell select option { background: var(--ad-card); color: var(--ad-heading); }
+
+/* Dark scrollbars for the admin only */
+.admin-shell *::-webkit-scrollbar { width: 10px; height: 10px; }
+.admin-shell *::-webkit-scrollbar-track { background: var(--ad-app); }
+.admin-shell *::-webkit-scrollbar-thumb {
+  background: #2b3f34; border-radius: 8px; border: 2px solid var(--ad-app);
+}
+
+.admin-shell table thead tr { background: var(--ad-subtle) !important; }

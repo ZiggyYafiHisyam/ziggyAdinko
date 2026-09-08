@@ -104,6 +104,16 @@ CREATE TABLE IF NOT EXISTS testimoni (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Editable text/image overrides for the public pages (managed from Admin -> Editor Halaman).
+-- One row per field; absence of a row means "use the built-in default from the frontend".
+CREATE TABLE IF NOT EXISTS page_content (
+    page VARCHAR(50) NOT NULL,
+    ckey VARCHAR(150) NOT NULL,
+    value TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (page, ckey)
+);
+
 -- ---------------------------------------------------------------------------
 -- Seed data (safe to re-run)
 -- ---------------------------------------------------------------------------

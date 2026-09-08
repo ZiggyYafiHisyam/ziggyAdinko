@@ -1,16 +1,19 @@
 import { MessageCircle } from 'lucide-react';
 import { siteConfig } from '../data/siteData';
+import { usePageContent } from '../context/ContentContext';
 
 // Hero Section Floating Badge
 export const HeroFloatingBadge = () => {
+  const { c } = usePageContent('global');
+  const wa = c('contacts.directWa') || siteConfig.contacts.directWaNumber;
   const handleWaClick = () => {
-    window.open(`https://wa.me/${siteConfig.contacts.directWaNumber}?text=Halo%20Adinko%20%26%20GhaziSportsHub,%20saya%20ingin%20konsultasi%20pembuatan%20taman%20/%20lapangan%20olahraga`, '_blank');
+    window.open(`https://wa.me/${wa}?text=Halo%20Adinko%20%26%20GhaziSportsHub,%20saya%20ingin%20konsultasi%20pembuatan%20taman%20/%20lapangan%20olahraga`, '_blank');
   };
 
   return (
     <div className="hero-floating-badge">
       <div className="slot-badge">
-        Slot terbatas - Pesan sekarang!
+        {c('floating.slotBadge')}
       </div>
       <button 
         onClick={handleWaClick}

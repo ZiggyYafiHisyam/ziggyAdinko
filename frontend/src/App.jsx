@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ContentProvider } from './context/ContentContext';
 import { ProtectedRoute } from './components/admin/ProtectedRoute';
 
 
 // Public Layout Components
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { GlobalWhatsAppSticky } from './components/FloatingCta';
 import { ScrollToTop } from './components/ScrollToTop';
 
 // Public Pages
@@ -28,6 +28,7 @@ import { AdminLayanan } from './pages/admin/AdminLayanan';
 import { AdminTestimoni } from './pages/admin/AdminTestimoni';
 import { AdminMessages } from './pages/admin/AdminMessages';
 import { AdminSettings } from './pages/admin/AdminSettings';
+import { AdminPages } from './pages/admin/AdminPages';
 
 // Public Layout Wrapper
 const PublicLayout = () => {
@@ -38,7 +39,6 @@ const PublicLayout = () => {
       <main style={{ flex: 1 }}>
         <Outlet />
       </main>
-      <GlobalWhatsAppSticky />
       <Footer />
     </div>
   );
@@ -47,6 +47,7 @@ const PublicLayout = () => {
 export const App = () => {
   return (
     <AuthProvider>
+      <ContentProvider>
       <BrowserRouter>
         <Routes>
           {/* 1. PUBLIC STATIC & DYNAMIC PAGES (Free Access Without Login) */}
@@ -68,6 +69,7 @@ export const App = () => {
             <Route element={<AdminLayout />}>
               <Route index element={<Navigate to="/admin/dashboard" replace />} />
               <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="pages" element={<AdminPages />} />
               <Route path="portofolio" element={<AdminPortofolio />} />
               <Route path="layanan" element={<AdminLayanan />} />
               <Route path="testimoni" element={<AdminTestimoni />} />
@@ -80,6 +82,7 @@ export const App = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
+      </ContentProvider>
     </AuthProvider>
   );
 };

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getRows } from '../../api';
-import { 
-  FolderKanban, 
-  Layers, 
-  MessageSquare, 
-  Mail, 
-  ArrowUpRight, 
-  Plus, 
-  Clock, 
+import {
+  FolderKanban,
+  Layers,
+  MessageSquare,
+  Mail,
+  ArrowUpRight,
+  Plus,
+  Clock,
   Phone
 } from 'lucide-react';
 
@@ -50,10 +50,10 @@ export const AdminDashboard = () => {
   }, []);
 
   const statCards = [
-    { title: 'Total Portofolio', count: stats.portofolio, icon: <FolderKanban size={24} />, color: '#486F0C', bg: '#F4F7EE', to: '/admin/portofolio' },
-    { title: 'Katalog Layanan', count: stats.layanan, icon: <Layers size={24} />, color: '#0284C7', bg: '#F0F9FF', to: '/admin/layanan' },
-    { title: 'Testimoni & Review', count: stats.testimoni, icon: <MessageSquare size={24} />, color: '#D97706', bg: '#FFFBEB', to: '/admin/testimoni' },
-    { title: 'Pesan Konsultasi Masuk', count: stats.messages, icon: <Mail size={24} />, color: '#7C3AED', bg: '#F5F3FF', to: '/admin/messages' },
+    { title: 'Total Portofolio', count: stats.portofolio, icon: <FolderKanban size={24} />, color: '#A3E635', bg: 'rgba(163,230,53,0.12)', to: '/admin/portofolio' },
+    { title: 'Katalog Layanan', count: stats.layanan, icon: <Layers size={24} />, color: '#38BDF8', bg: 'rgba(56,189,248,0.12)', to: '/admin/layanan' },
+    { title: 'Testimoni & Review', count: stats.testimoni, icon: <MessageSquare size={24} />, color: '#FBBF24', bg: 'rgba(251,191,36,0.12)', to: '/admin/testimoni' },
+    { title: 'Pesan Konsultasi Masuk', count: stats.messages, icon: <Mail size={24} />, color: '#C084FC', bg: 'rgba(192,132,252,0.12)', to: '/admin/messages' },
   ];
 
   return (
@@ -61,11 +61,11 @@ export const AdminDashboard = () => {
       {/* Header Banner */}
       <div style={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#121212', marginBottom: '6px' }}>
+          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--ad-heading)', marginBottom: '6px' }}>
             Dashboard Manajemen
           </h1>
-          <p style={{ color: '#667085', fontSize: '0.95rem' }}>
-            Kelola seluruh konten, portofolio, dan pesan konsultasi website Adinko & GhaziSportsHub
+          <p style={{ color: 'var(--ad-muted)', fontSize: '0.95rem' }}>
+            Kelola seluruh konten, portofolio, dan pesan konsultasi website Adinko &amp; GhaziSportsHub
           </p>
         </div>
 
@@ -88,11 +88,11 @@ export const AdminDashboard = () => {
             key={i}
             onClick={() => navigate(card.to)}
             style={{
-              background: '#FFFFFF',
+              background: 'var(--ad-card)',
               borderRadius: '16px',
               padding: '24px',
-              border: '1px solid #EAECF0',
-              boxShadow: '0 1px 3px rgba(16, 24, 40, 0.05)',
+              border: '1px solid var(--ad-border)',
+              boxShadow: 'var(--ad-shadow)',
               cursor: 'pointer',
               transition: 'transform 0.2s, box-shadow 0.2s',
               display: 'flex',
@@ -104,14 +104,14 @@ export const AdminDashboard = () => {
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: card.bg, color: card.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {card.icon}
               </div>
-              <ArrowUpRight size={18} color="#98A2B3" />
+              <ArrowUpRight size={18} color="var(--ad-faint)" />
             </div>
 
             <div style={{ marginTop: '20px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: '#121212', lineHeight: 1 }}>
+              <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--ad-heading)', lineHeight: 1 }}>
                 {loading ? '...' : card.count}
               </div>
-              <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#667085', marginTop: '6px' }}>
+              <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--ad-muted)', marginTop: '6px' }}>
                 {card.title}
               </div>
             </div>
@@ -120,33 +120,33 @@ export const AdminDashboard = () => {
       </div>
 
       {/* Recent Messages Section */}
-      <div style={{ background: '#FFFFFF', borderRadius: '16px', border: '1px solid #EAECF0', boxShadow: '0 1px 3px rgba(16, 24, 40, 0.05)', overflow: 'hidden' }}>
-        <div style={{ padding: '20px 24px', borderBottom: '1px solid #EAECF0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ background: 'var(--ad-card)', borderRadius: '16px', border: '1px solid var(--ad-border)', boxShadow: 'var(--ad-shadow)', overflow: 'hidden' }}>
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--ad-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#121212' }}>
+            <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--ad-heading)' }}>
               Pesan Konsultasi Terbaru
             </h2>
-            <p style={{ fontSize: '0.8rem', color: '#667085', marginTop: '2px' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--ad-muted)', marginTop: '2px' }}>
               Permintaan survei dan konsultasi dari form kontak website
             </p>
           </div>
           <button
             onClick={() => navigate('/admin/messages')}
-            style={{ background: 'transparent', border: 'none', color: 'var(--green-700)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--ad-accent)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
           >
-            Lihat Semua Pesan →
+            Lihat Semua Pesan &rarr;
           </button>
         </div>
 
         {loading ? (
-          <div style={{ padding: '40px', textAlign: 'center', color: '#667085' }}>Memuat data pesan...</div>
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--ad-muted)' }}>Memuat data pesan...</div>
         ) : recentMessages.length === 0 ? (
-          <div style={{ padding: '40px', textAlign: 'center', color: '#667085' }}>Belum ada pesan konsultasi yang masuk.</div>
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--ad-muted)' }}>Belum ada pesan konsultasi yang masuk.</div>
         ) : (
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
               <thead>
-                <tr style={{ background: '#F9FAFB', borderBottom: '1px solid #EAECF0', color: '#475467' }}>
+                <tr style={{ background: 'var(--ad-subtle)', borderBottom: '1px solid var(--ad-border)', color: 'var(--ad-muted)' }}>
                   <th style={{ padding: '12px 24px', fontWeight: 600 }}>Pengirim</th>
                   <th style={{ padding: '12px 20px', fontWeight: 600 }}>No. WhatsApp</th>
                   <th style={{ padding: '12px 20px', fontWeight: 600 }}>Lokasi</th>
@@ -156,26 +156,26 @@ export const AdminDashboard = () => {
               </thead>
               <tbody>
                 {recentMessages.map((msg, i) => (
-                  <tr key={msg.id_message || i} style={{ borderBottom: '1px solid #F2F4F7' }}>
-                    <td style={{ padding: '16px 24px', fontWeight: 600, color: '#101828' }}>{msg.name}</td>
-                    <td style={{ padding: '16px 20px', color: '#475467' }}>
+                  <tr key={msg.id_message || i} style={{ borderBottom: '1px solid var(--ad-border)' }}>
+                    <td style={{ padding: '16px 24px', fontWeight: 600, color: 'var(--ad-heading)' }}>{msg.name}</td>
+                    <td style={{ padding: '16px 20px', color: 'var(--ad-text)' }}>
                       <a
                         href={`https://wa.me/${(msg.noWA || '').replace(/\D/g, '')}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#16A34A', textDecoration: 'none', fontWeight: 600 }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#4ADE80', textDecoration: 'none', fontWeight: 600 }}
                       >
                         <Phone size={14} />
                         <span>{msg.noWA}</span>
                       </a>
                     </td>
-                    <td style={{ padding: '16px 20px', color: '#475467' }}>{msg.location || '-'}</td>
+                    <td style={{ padding: '16px 20px', color: 'var(--ad-text)' }}>{msg.location || '-'}</td>
                     <td style={{ padding: '16px 20px' }}>
-                      <span style={{ background: 'var(--green-50)', color: 'var(--green-800)', padding: '4px 10px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 600 }}>
+                      <span style={{ background: 'var(--ad-accent-soft)', color: 'var(--ad-accent)', padding: '4px 10px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 600 }}>
                         {msg.kebutuhan}
                       </span>
                     </td>
-                    <td style={{ padding: '16px 24px', color: '#667085', fontSize: '0.8rem' }}>
+                    <td style={{ padding: '16px 24px', color: 'var(--ad-muted)', fontSize: '0.8rem' }}>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                         <Clock size={13} />
                         {msg.created_at ? new Date(msg.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'}

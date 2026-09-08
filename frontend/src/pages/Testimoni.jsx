@@ -4,10 +4,13 @@ import { ArrowRight, Star, ExternalLink } from 'lucide-react';
 import { testimonialsData, siteConfig } from '../data/siteData';
 import { ReviewCard } from '../components/ReviewCard';
 import { HeroFloatingBadge } from '../components/FloatingCta';
+import { usePageContent } from '../context/ContentContext';
 import { getRows } from '../api';
 
 export const Testimoni = () => {
   const navigate = useNavigate();
+  const { c } = usePageContent('testimoni');
+  const gc = usePageContent('global').c;
   const [activeFilter, setActiveFilter] = useState('Semua');
   const [reviews, setReviews] = useState(testimonialsData);
 
@@ -51,21 +54,21 @@ export const Testimoni = () => {
   return (
     <div>
       {/* 1. HERO SECTION */}
-      <section 
+      <section
         className="hero-wrapper"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=80')` }}
+        style={{ backgroundImage: `url('${c('hero.bg')}')` }}
       >
         <div className="hero-overlay" />
         <div className="container">
           <div className="hero-content">
             <div className="hero-tag">
-              Kepuasan Klien adalah Prioritas Kami
+              {c('hero.tag')}
             </div>
             <h1 className="hero-title">
-              Apa Kata Klien Kami?
+              {c('hero.title')}
             </h1>
             <p className="hero-subtitle">
-              Berikut testimoni dari klien yang telah mempercayakan proyek mereka kepada kami. Hasil nyata, klien puas.
+              {c('hero.subtitle')}
             </p>
           </div>
         </div>
@@ -92,20 +95,19 @@ export const Testimoni = () => {
               ))}
             </div>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--green-900, #101E13)', marginBottom: '8px' }}>
-              Puas dengan hasil kerja kami?
+              {c('gmaps.title')}
             </h2>
             <p style={{ color: '#667085', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '520px', margin: '0 auto 22px auto' }}>
-              Bagikan pengalaman Anda di Google Maps. Ulasan Anda membantu calon pelanggan
-              lain di Pekanbaru menemukan dan mempercayai Adinko Rumput Sintetis.
+              {c('gmaps.body')}
             </p>
             <a
-              href={siteConfig.contacts.googleReviewUrl}
+              href={gc('contacts.googleReviewUrl') || siteConfig.contacts.googleReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary-hero"
               style={{ textDecoration: 'none', padding: '13px 26px', fontSize: '0.95rem' }}
             >
-              <span>Leave us a review on GMaps!</span>
+              <span>{c('gmaps.btn')}</span>
               <span className="arrow-circle">
                 <ExternalLink size={14} />
               </span>
@@ -143,11 +145,11 @@ export const Testimoni = () => {
           </div>
 
           <div className="text-center" style={{ marginTop: '48px' }}>
-            <button 
-              onClick={() => navigate('/kontak')} 
+            <button
+              onClick={() => navigate('/kontak')}
               className="btn-primary-hero"
             >
-              <span>Lihat lebih banyak proyek</span>
+              <span>{c('grid.btn')}</span>
               <span className="arrow-circle">
                 <ArrowRight size={14} />
               </span>

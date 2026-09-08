@@ -4,10 +4,12 @@ import { ArrowRight } from 'lucide-react';
 import { portfolioData } from '../data/siteData';
 import { ProjectCard } from '../components/ProjectCard';
 import { HeroFloatingBadge } from '../components/FloatingCta';
+import { usePageContent } from '../context/ContentContext';
 import { getRows } from '../api';
 
 export const Portofolio = () => {
   const navigate = useNavigate();
+  const { c } = usePageContent('portofolio');
   const [activeFilter, setActiveFilter] = useState('Semua');
   const [projects, setProjects] = useState(portfolioData);
 
@@ -35,21 +37,21 @@ export const Portofolio = () => {
   return (
     <div>
       {/* 1. HERO SECTION */}
-      <section 
+      <section
         className="hero-wrapper"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1558904541-efa8c4a08931?auto=format&fit=crop&w=1800&q=80')` }}
+        style={{ backgroundImage: `url('${c('hero.bg')}')` }}
       >
         <div className="hero-overlay" />
         <div className="container">
           <div className="hero-content">
             <div className="hero-tag">
-              Hasil Nyata, Klien Puas
+              {c('hero.tag')}
             </div>
             <h1 className="hero-title">
-              Hasil Pekerjaan Kami
+              {c('hero.title')}
             </h1>
             <p className="hero-subtitle">
-              Kami telah mengerjakan berbagai proyek dengan hasil memuaskan dari skala rumahan hingga komersial besar. Setiap proyek adalah bukti komitmen kami.
+              {c('hero.subtitle')}
             </p>
           </div>
         </div>
@@ -85,7 +87,7 @@ export const Portofolio = () => {
               onClick={() => navigate('/kontak')} 
               className="btn-primary-hero"
             >
-              <span>Lihat lebih banyak proyek</span>
+              <span>{c('grid.btn')}</span>
               <span className="arrow-circle">
                 <ArrowRight size={14} />
               </span>

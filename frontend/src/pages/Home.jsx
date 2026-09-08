@@ -9,10 +9,13 @@ import { ReviewCard } from '../components/ReviewCard';
 import { ContactForm } from '../components/ContactForm';
 import { HeroFloatingBadge } from '../components/FloatingCta';
 import { AdinkoLogo, GhaziLogo } from '../assets/Logos';
+import { usePageContent } from '../context/ContentContext';
 import { getRows } from '../api';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { c } = usePageContent('home');
+  const gc = usePageContent('global').c;
   const [activeFilter, setActiveFilter] = useState('Semua');
   const [homeContent, setHomeContent] = useState(null);
   const [reviews, setReviews] = useState(testimonialsData);
@@ -57,47 +60,62 @@ export const Home = () => {
     return true;
   }).slice(0, 6);
 
+  const stats = [
+    { value: c('stats.1value'), label: c('stats.1label') },
+    { value: c('stats.2value'), label: c('stats.2label') },
+    { value: c('stats.3value'), label: c('stats.3label') },
+    { value: c('stats.4value'), label: c('stats.4label') },
+  ];
+
+  const featureItems = [1, 2, 3, 4].map((n) => ({
+    id: `00${n}`,
+    number: `00${n}`,
+    title: c(`features.c${n}title`),
+    description: c(`features.c${n}desc`),
+    bgImage: c(`features.c${n}img`),
+    icon: ['layers', 'layout', 'gem', 'shield-check'][n - 1],
+  }));
+
   return (
     <div>
       {/* 1. HERO SECTION */}
-      <section 
+      <section
         className="hero-wrapper"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1800&q=80')` }}
+        style={{ backgroundImage: `url('${c('hero.bg')}')` }}
       >
         <div className="hero-overlay" />
         <div className="container">
           <div className="hero-content">
             <div className="hero-tag">
-              {siteConfig.since}
+              {c('hero.tag')}
             </div>
             <h1 className="hero-title">
-              {homeContent?.title || 'Jasa Rumput Sintetis & Lapangan Olahraga Profesional Pekanbaru'}
+              {homeContent?.title || c('hero.title')}
             </h1>
             <p className="hero-subtitle">
-              {homeContent?.subtitle || 'Rumput sintetis berkualitas tinggi untuk kebutuhan taman & lapangan olahraga profesional Pekanbaru & Riau.'}
+              {homeContent?.subtitle || c('hero.subtitle')}
             </p>
             <div className="hero-actions">
-              <button 
-                onClick={() => navigate('/kontak')} 
+              <button
+                onClick={() => navigate('/kontak')}
                 className="btn-primary-hero"
               >
-                <span>Konsultasi Gratis</span>
+                <span>{c('hero.btnPrimary')}</span>
                 <span className="arrow-circle">
                   <ArrowRight size={14} />
                 </span>
               </button>
-              <button 
-                onClick={() => navigate('/portofolio')} 
+              <button
+                onClick={() => navigate('/portofolio')}
                 className="btn-secondary-hero"
               >
-                <span>Lihat Portofolio</span>
+                <span>{c('hero.btnSecondary')}</span>
                 <ChevronRight size={16} />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Floating Top-Right Slot Badge & WhatsApp */}
         <HeroFloatingBadge />
       </section>
 
@@ -105,7 +123,7 @@ export const Home = () => {
       <section className="stats-bar">
         <div className="container">
           <div className="stats-grid">
-            {siteConfig.stats.map((stat, i) => (
+            {stats.map((stat, i) => (
               <div key={i} className="stat-item">
                 <div className="stat-value">{stat.value}</div>
                 <div className="stat-label">{stat.label}</div>
@@ -120,19 +138,19 @@ export const Home = () => {
         <div className="container">
           <div className="dual-brand-grid">
             <div>
-              <span className="section-tag">DUA BRAND KAMI</span>
+              <span className="section-tag">{c('dual.tag')}</span>
               <h2 className="section-title">
-                Dua Brand, Satu Komitmen: Kualitas Terbaik
+                {c('dual.title')}
               </h2>
               <p className="section-subtitle" style={{ marginBottom: '28px' }}>
-                Kami menghadirkan kolaborasi terpadu antara <strong>Adinko</strong> (spesialis rumput sintetis taman & lanskap hunian) serta <strong>GhaziSportsHub</strong> (kontraktor fasilitas lapangan olahraga berstandar profesional).
+                {c('dual.subtitle')}
               </p>
-              <button 
+              <button
                 onClick={() => navigate('/layanan')}
                 className="btn-primary-hero"
                 style={{ padding: '12px 24px', fontSize: '0.9rem' }}
               >
-                <span>Lihat Selengkapnya</span>
+                <span>{c('dual.btn')}</span>
                 <span className="arrow-circle">
                   <ArrowRight size={14} />
                 </span>
@@ -141,16 +159,13 @@ export const Home = () => {
 
             <div className="dual-brand-cards">
               {/* Brand 1: Adinko */}
-              <div 
+              <div
                 className="brand-showcase-card"
                 onClick={() => navigate('/tentang-adinko')}
                 style={{ cursor: 'pointer' }}
               >
                 <div className="brand-card-img-wrapper">
-                  <img 
-                    src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=700&q=80" 
-                    alt="Rumput Sintetis Adinko" 
-                  />
+                  <img src={c('dual.card1img')} alt={c('dual.card1title')} />
                   <div className="brand-card-logo-overlay">
                     <div style={{ background: 'rgba(0,0,0,0.5)', padding: '12px', borderRadius: '50%' }}>
                       <AdinkoLogo size={42} showText={false} />
@@ -158,22 +173,19 @@ export const Home = () => {
                   </div>
                 </div>
                 <div className="brand-card-body">
-                  <h3 className="brand-card-title">Rumput Sintetis</h3>
-                  <p className="brand-card-text">Taman & lanskap hunian elegan ramah anak</p>
+                  <h3 className="brand-card-title">{c('dual.card1title')}</h3>
+                  <p className="brand-card-text">{c('dual.card1text')}</p>
                 </div>
               </div>
 
               {/* Brand 2: GhaziSportsHub */}
-              <div 
+              <div
                 className="brand-showcase-card"
                 onClick={() => navigate('/tentang-ghazi')}
                 style={{ cursor: 'pointer' }}
               >
                 <div className="brand-card-img-wrapper">
-                  <img 
-                    src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=700&q=80" 
-                    alt="Lapangan Olahraga Ghazi" 
-                  />
+                  <img src={c('dual.card2img')} alt={c('dual.card2title')} />
                   <div className="brand-card-logo-overlay">
                     <div style={{ background: 'rgba(0,0,0,0.5)', padding: '12px', borderRadius: '50%' }}>
                       <GhaziLogo size={42} color="#FFFFFF" />
@@ -181,34 +193,34 @@ export const Home = () => {
                   </div>
                 </div>
                 <div className="brand-card-body">
-                  <h3 className="brand-card-title">Lapangan Olahraga</h3>
-                  <p className="brand-card-text">Mini soccer, futsal, padel & jaring pengaman</p>
+                  <h3 className="brand-card-title">{c('dual.card2title')}</h3>
+                  <p className="brand-card-text">{c('dual.card2text')}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section> 
+      </section>
 
       {/* 4. INTERACTIVE FEATURE CARDS (001 - 004) */}
       <section className="interactive-features-section">
         <div className="container">
           <div className="text-center">
-            <span className="section-tag">KEUNGGULAN KAMI</span>
-            <h2 className="section-title">Solusi Tepat untuk Hunian Anda</h2>
+            <span className="section-tag">{c('features.tag')}</span>
+            <h2 className="section-title">{c('features.title')}</h2>
             <p className="section-subtitle mx-auto">
-              Kualitas pengerjaan presisi dengan jaminan kepuasan dan transparansi harga untuk setiap proyek Anda.
+              {c('features.subtitle')}
             </p>
           </div>
 
-          <FeatureCards activeIndexDefault={0} />
+          <FeatureCards activeIndexDefault={0} items={featureItems} />
 
           <div className="text-center">
-            <button 
-              onClick={() => navigate('/kontak')} 
+            <button
+              onClick={() => navigate('/kontak')}
               className="btn-primary-hero"
             >
-              <span>Konsultasi GRATIS Sekarang</span>
+              <span>{c('features.btn')}</span>
               <span className="arrow-circle">
                 <ArrowRight size={14} />
               </span>
@@ -221,10 +233,10 @@ export const Home = () => {
       <section style={{ padding: '80px 0', background: 'var(--white)' }}>
         <div className="container">
           <div className="text-center">
-            <span className="section-tag">PORTOFOLIO</span>
-            <h2 className="section-title">Hasil Pekerjaan Kami</h2>
+            <span className="section-tag">{c('portfolio.tag')}</span>
+            <h2 className="section-title">{c('portfolio.title')}</h2>
             <p className="section-subtitle mx-auto">
-              Dokumentasi nyata instalasi rumput sintetis dan lapangan olahraga terbaik di Pekanbaru.
+              {c('portfolio.subtitle')}
             </p>
           </div>
 
@@ -249,11 +261,11 @@ export const Home = () => {
           </div>
 
           <div className="text-center" style={{ marginTop: '40px' }}>
-            <button 
-              onClick={() => navigate('/portofolio')} 
+            <button
+              onClick={() => navigate('/portofolio')}
               className="btn-primary-hero"
             >
-              <span>Lihat lebih banyak proyek</span>
+              <span>{c('portfolio.btn')}</span>
               <span className="arrow-circle">
                 <ArrowRight size={14} />
               </span>
@@ -267,20 +279,20 @@ export const Home = () => {
         <div className="testimonials-dark-container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '20px' }}>
             <div>
-              <span className="section-tag" style={{ color: 'var(--green-300)' }}>TESTIMONI KLIEN</span>
+              <span className="section-tag" style={{ color: 'var(--green-300)' }}>{c('testi.tag')}</span>
               <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.2 }}>
-                Apa Kata Klien Kami?
+                {c('testi.title')}
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', marginTop: '6px' }}>
-                dari Google Review & Pelanggan Setia
+                {c('testi.subtitle')}
               </p>
             </div>
 
             {/* Google Rating Star Badge */}
-            <div style={{ 
-              background: 'rgba(255,255,255,0.12)', 
-              backdropFilter: 'blur(8px)', 
-              padding: '10px 20px', 
+            <div style={{
+              background: 'rgba(255,255,255,0.12)',
+              backdropFilter: 'blur(8px)',
+              padding: '10px 20px',
               borderRadius: '9999px',
               display: 'flex',
               alignItems: 'center',
@@ -304,7 +316,7 @@ export const Home = () => {
           </div>
 
           <div className="text-center">
-            <button 
+            <button
               onClick={() => navigate('/testimoni')}
               style={{
                 background: '#FFFFFF',
@@ -319,7 +331,7 @@ export const Home = () => {
                 boxShadow: '0 4px 14px rgba(0,0,0,0.2)'
               }}
             >
-              <span>Lihat Semua Testimoni</span>
+              <span>{c('testi.btn')}</span>
               <span className="arrow-circle" style={{ background: 'var(--green-600)', color: '#FFFFFF' }}>
                 <ArrowRight size={14} />
               </span>
@@ -334,9 +346,9 @@ export const Home = () => {
           <div className="contact-grid">
             {/* Left Column: Contact Details & Google Maps */}
             <div className="contact-info-card">
-              <span className="section-tag">CONTACT</span>
+              <span className="section-tag">{c('contact.tag')}</span>
               <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '24px' }}>
-                Hubungi Kami
+                {c('contact.title')}
               </h2>
 
               <div className="contact-item">
@@ -345,7 +357,7 @@ export const Home = () => {
                 </div>
                 <div>
                   <div className="contact-item-title">Alamat</div>
-                  <div className="contact-item-text">{siteConfig.contacts.address}</div>
+                  <div className="contact-item-text">{gc('contacts.address')}</div>
                 </div>
               </div>
 
@@ -356,9 +368,9 @@ export const Home = () => {
                 <div>
                   <div className="contact-item-title">WhatsApp</div>
                   <div className="contact-item-text">
-                    <div>{siteConfig.contacts.whatsappAdinko} (Adinko)</div>
-                    <div>{siteConfig.contacts.whatsappAdinko2}</div>
-                    <div>{siteConfig.contacts.whatsappGhazi} (GhaziSportsHub)</div>
+                    <div>{gc('contacts.waAdinko')} (Adinko)</div>
+                    <div>{gc('contacts.waAdinko2')}</div>
+                    <div>{gc('contacts.waGhazi')} (GhaziSportsHub)</div>
                   </div>
                 </div>
               </div>
@@ -370,8 +382,8 @@ export const Home = () => {
                 <div>
                   <div className="contact-item-title">Instagram</div>
                   <div className="contact-item-text">
-                    <div>{siteConfig.contacts.instagramAdinko}</div>
-                    <div>{siteConfig.contacts.instagramGhazi}</div>
+                    <div>{gc('contacts.igAdinko')}</div>
+                    <div>{gc('contacts.igGhazi')}</div>
                   </div>
                 </div>
               </div>
@@ -380,19 +392,19 @@ export const Home = () => {
               <div className="map-embed-wrapper">
                 <iframe
                   title="Google Maps Location Adinko"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15958.826554559868!2d101.442!3d0.485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5a92a543e371b%3A0x6b405553e1a0b!2sTangkerang%20Barat%2C%20Pekanbaru!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                  src={gc('contacts.mapsEmbed')}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
 
-              <button 
-                onClick={() => window.open(siteConfig.contacts.mapsUrl, '_blank')}
+              <button
+                onClick={() => window.open(gc('contacts.mapsUrl') || siteConfig.contacts.mapsUrl, '_blank')}
                 className="btn-primary-hero"
                 style={{ width: '100%', justifyContent: 'center' }}
               >
-                <span>Petunjuk Arah Google Maps</span>
+                <span>{c('contact.btn')}</span>
                 <span className="arrow-circle">
                   <Navigation size={14} />
                 </span>
@@ -400,7 +412,7 @@ export const Home = () => {
             </div>
 
             {/* Right Column: Interactive Consultation Form */}
-            <ContactForm title="Kirim Pesan ke Kami" />
+            <ContactForm title={c('contact.formTitle')} />
           </div>
         </div>
       </section>
@@ -408,15 +420,15 @@ export const Home = () => {
       {/* 8. BOTTOM CTA BANNER */}
       <section style={{ padding: '40px 0', background: 'var(--green-50)', textAlign: 'center' }}>
         <div className="container">
-          <p style={{ 
-            fontSize: '1.25rem', 
-            fontWeight: 700, 
-            color: 'var(--green-800)', 
-            maxWidth: '750px', 
+          <p style={{
+            fontSize: '1.25rem',
+            fontWeight: 700,
+            color: 'var(--green-800)',
+            maxWidth: '750px',
             margin: '0 auto',
             lineHeight: 1.5
           }}>
-            Jangan tunda lagi wujudkan taman atau lapangan impian Anda bersama kami sekarang!
+            {c('bottom.text')}
           </p>
         </div>
       </section>

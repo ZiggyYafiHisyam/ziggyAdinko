@@ -40,23 +40,23 @@ export const AdminMessages = () => {
     <div>
       {/* Header */}
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#121212', marginBottom: '4px' }}>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--ad-heading)', marginBottom: '4px' }}>
           Pesan Konsultasi Masuk
         </h1>
-        <p style={{ color: '#667085', fontSize: '0.9rem' }}>
-          Daftar formulir konsultasi & estimasi survei yang dikirimkan oleh pengunjung website
+        <p style={{ color: 'var(--ad-muted)', fontSize: '0.9rem' }}>
+          Daftar formulir konsultasi &amp; estimasi survei yang dikirimkan oleh pengunjung website
         </p>
       </div>
 
       {/* Messages Table */}
-      <div style={{ background: '#FFFFFF', borderRadius: '16px', border: '1px solid #EAECF0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+      <div style={{ background: 'var(--ad-card)', borderRadius: '16px', border: '1px solid var(--ad-border)', boxShadow: 'var(--ad-shadow)', overflow: 'hidden' }}>
         {loading ? (
-          <div style={{ padding: '60px', textAlign: 'center', color: '#667085' }}>Memuat pesan...</div>
+          <div style={{ padding: '60px', textAlign: 'center', color: 'var(--ad-muted)' }}>Memuat pesan...</div>
         ) : messages.length === 0 ? (
-          <div style={{ padding: '60px', textAlign: 'center', color: '#667085' }}>
-            <Mail size={40} color="#D0D5DD" style={{ margin: '0 auto 12px auto' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#121212' }}>Kotak Pesan Masih Kosong</h3>
-            <p style={{ fontSize: '0.85rem', color: '#667085', marginTop: '4px' }}>
+          <div style={{ padding: '60px', textAlign: 'center', color: 'var(--ad-muted)' }}>
+            <Mail size={40} color="var(--ad-faint)" style={{ margin: '0 auto 12px auto' }} />
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--ad-heading)' }}>Kotak Pesan Masih Kosong</h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ad-muted)', marginTop: '4px' }}>
               Setiap kali user mengirim form di halaman kontak, pesan akan otomatis dicatat di sini.
             </p>
           </div>
@@ -64,7 +64,7 @@ export const AdminMessages = () => {
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
               <thead>
-                <tr style={{ background: '#F9FAFB', borderBottom: '1px solid #EAECF0', color: '#475467' }}>
+                <tr style={{ background: 'var(--ad-subtle)', borderBottom: '1px solid var(--ad-border)', color: 'var(--ad-muted)' }}>
                   <th style={{ padding: '14px 20px', fontWeight: 600 }}>Nama Pengirim</th>
                   <th style={{ padding: '14px 16px', fontWeight: 600 }}>WhatsApp</th>
                   <th style={{ padding: '14px 16px', fontWeight: 600 }}>Lokasi</th>
@@ -75,8 +75,8 @@ export const AdminMessages = () => {
               </thead>
               <tbody>
                 {messages.map((msg) => (
-                  <tr key={msg.id_message} style={{ borderBottom: '1px solid #F2F4F7' }}>
-                    <td style={{ padding: '16px 20px', fontWeight: 600, color: '#101828' }}>
+                  <tr key={msg.id_message} style={{ borderBottom: '1px solid var(--ad-border)' }}>
+                    <td style={{ padding: '16px 20px', fontWeight: 600, color: 'var(--ad-heading)' }}>
                       {msg.name}
                     </td>
                     <td style={{ padding: '16px 16px' }}>
@@ -84,24 +84,24 @@ export const AdminMessages = () => {
                         href={`https://wa.me/${(msg.noWA || '').replace(/\D/g, '')}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#16A34A', textDecoration: 'none', fontWeight: 600 }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#4ADE80', textDecoration: 'none', fontWeight: 600 }}
                       >
                         <Phone size={14} />
                         <span>{msg.noWA}</span>
                       </a>
                     </td>
-                    <td style={{ padding: '16px 16px', color: '#475467' }}>
+                    <td style={{ padding: '16px 16px', color: 'var(--ad-text)' }}>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                        <MapPin size={14} color="#98A2B3" />
+                        <MapPin size={14} color="var(--ad-faint)" />
                         <span>{msg.location || '-'}</span>
                       </span>
                     </td>
                     <td style={{ padding: '16px 16px' }}>
-                      <span style={{ background: 'var(--green-50)', color: 'var(--green-800)', padding: '4px 10px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 600 }}>
+                      <span style={{ background: 'var(--ad-accent-soft)', color: 'var(--ad-accent)', padding: '4px 10px', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 600 }}>
                         {msg.kebutuhan}
                       </span>
                     </td>
-                    <td style={{ padding: '16px 20px', color: '#667085', fontSize: '0.8rem' }}>
+                    <td style={{ padding: '16px 20px', color: 'var(--ad-muted)', fontSize: '0.8rem' }}>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                         <Clock size={13} />
                         {msg.created_at ? new Date(msg.created_at).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '-'}
@@ -111,14 +111,14 @@ export const AdminMessages = () => {
                       <div style={{ display: 'inline-flex', gap: '8px' }}>
                         <button
                           onClick={() => setSelectedMessage(msg)}
-                          style={{ padding: '6px 10px', borderRadius: '6px', background: '#F4F7EE', color: 'var(--green-800)', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 600 }}
+                          style={{ padding: '6px 10px', borderRadius: '6px', background: 'var(--ad-accent-soft)', color: 'var(--ad-accent)', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 600 }}
                         >
                           <Eye size={13} />
                           <span>Detail</span>
                         </button>
                         <button
                           onClick={() => handleDelete(msg.id_message)}
-                          style={{ padding: '6px 8px', borderRadius: '6px', background: '#FEF3F2', color: '#B42318', border: 'none', cursor: 'pointer' }}
+                          style={{ padding: '6px 8px', borderRadius: '6px', background: 'var(--ad-danger-bg)', color: 'var(--ad-danger)', border: 'none', cursor: 'pointer' }}
                         >
                           <Trash2 size={13} />
                         </button>
@@ -134,32 +134,32 @@ export const AdminMessages = () => {
 
       {/* Message Detail Modal */}
       {selectedMessage && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '20px' }}>
-          <div style={{ background: '#FFFFFF', borderRadius: '20px', width: '100%', maxWidth: '520px', padding: '28px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--ad-overlay)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '20px' }}>
+          <div style={{ background: 'var(--ad-card)', borderRadius: '20px', width: '100%', maxWidth: '520px', padding: '28px', boxShadow: 'var(--ad-shadow)', border: '1px solid var(--ad-border)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#121212', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <MessageSquareQuote size={20} color="var(--green-600)" />
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--ad-heading)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <MessageSquareQuote size={20} color="var(--ad-accent)" />
                 <span>Detail Pesan Konsultasi</span>
               </h2>
-              <button onClick={() => setSelectedMessage(null)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#667085' }}>
+              <button onClick={() => setSelectedMessage(null)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--ad-muted)' }}>
                 <X size={20} />
               </button>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.9rem' }}>
               <div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#667085', textTransform: 'uppercase' }}>Nama Lengkap</div>
-                <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#121212', marginTop: '2px' }}>{selectedMessage.name}</div>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--ad-muted)', textTransform: 'uppercase' }}>Nama Lengkap</div>
+                <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--ad-heading)', marginTop: '2px' }}>{selectedMessage.name}</div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#667085', textTransform: 'uppercase' }}>No. WhatsApp</div>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--ad-muted)', textTransform: 'uppercase' }}>No. WhatsApp</div>
                   <a
                     href={`https://wa.me/${(selectedMessage.noWA || '').replace(/\D/g, '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: '#16A34A', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}
+                    style={{ color: '#4ADE80', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}
                   >
                     <Phone size={14} />
                     <span>{selectedMessage.noWA}</span>
@@ -167,34 +167,34 @@ export const AdminMessages = () => {
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#667085', textTransform: 'uppercase' }}>Lokasi Proyek</div>
-                  <div style={{ fontWeight: 600, color: '#344054', marginTop: '2px' }}>{selectedMessage.location || '-'}</div>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--ad-muted)', textTransform: 'uppercase' }}>Lokasi Proyek</div>
+                  <div style={{ fontWeight: 600, color: 'var(--ad-text)', marginTop: '2px' }}>{selectedMessage.location || '-'}</div>
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#667085', textTransform: 'uppercase' }}>Kebutuhan Layanan</div>
-                <div style={{ display: 'inline-block', marginTop: '4px', background: 'var(--green-50)', color: 'var(--green-800)', padding: '4px 12px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.8rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--ad-muted)', textTransform: 'uppercase' }}>Kebutuhan Layanan</div>
+                <div style={{ display: 'inline-block', marginTop: '4px', background: 'var(--ad-accent-soft)', color: 'var(--ad-accent)', padding: '4px 12px', borderRadius: '9999px', fontWeight: 700, fontSize: '0.8rem' }}>
                   {selectedMessage.kebutuhan}
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#667085', textTransform: 'uppercase' }}>Keterangan / Detail</div>
-                <div style={{ background: '#F8F9FA', padding: '14px', borderRadius: '10px', marginTop: '4px', color: '#344054', lineHeight: 1.6, border: '1px solid #EAECF0' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--ad-muted)', textTransform: 'uppercase' }}>Keterangan / Detail</div>
+                <div style={{ background: 'var(--ad-subtle)', padding: '14px', borderRadius: '10px', marginTop: '4px', color: 'var(--ad-text)', lineHeight: 1.6, border: '1px solid var(--ad-border)' }}>
                   {selectedMessage.details || 'Tidak ada catatan tambahan.'}
                 </div>
               </div>
 
-              <div style={{ fontSize: '0.75rem', color: '#98A2B3', marginTop: '4px' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--ad-faint)', marginTop: '4px' }}>
                 Diterima: {selectedMessage.created_at ? new Date(selectedMessage.created_at).toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' }) : '-'}
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px', paddingTop: '16px', borderTop: '1px solid #EAECF0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--ad-border)' }}>
               <button
                 onClick={() => handleDelete(selectedMessage.id_message)}
-                style={{ background: '#FEF3F2', color: '#B42318', border: 'none', padding: '8px 14px', borderRadius: '8px', fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                style={{ background: 'var(--ad-danger-bg)', color: 'var(--ad-danger)', border: 'none', padding: '8px 14px', borderRadius: '8px', fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
               >
                 <Trash2 size={14} />
                 <span>Hapus Pesan</span>

@@ -61,11 +61,11 @@ export const AdminLogin = () => {
       <div style={{
         width: '100%',
         maxWidth: '440px',
-        background: 'rgba(255, 255, 255, 0.96)',
+        background: 'rgba(21, 34, 27, 0.94)',
         backdropFilter: 'blur(16px)',
         borderRadius: '24px',
         padding: '40px 32px',
-        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 24px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06)',
         position: 'relative',
         zIndex: 1
       }}>
@@ -78,9 +78,9 @@ export const AdminLogin = () => {
             width: '64px',
             height: '64px',
             borderRadius: '18px',
-            background: 'var(--green-50)',
+            background: 'rgba(111, 168, 43, 0.14)',
             marginBottom: '16px',
-            border: '1px solid var(--green-200)'
+            border: '1px solid rgba(111, 168, 43, 0.3)'
           }}>
             <AdinkoLogo size={36} showText={false} />
           </div>
@@ -91,8 +91,8 @@ export const AdminLogin = () => {
             gap: '6px',
             padding: '4px 12px',
             borderRadius: '9999px',
-            background: 'rgba(72, 111, 12, 0.1)',
-            color: 'var(--green-700)',
+            background: 'rgba(111, 168, 43, 0.16)',
+            color: 'var(--ad-accent)',
             fontSize: '0.75rem',
             fontWeight: 700,
             textTransform: 'uppercase',
@@ -103,10 +103,10 @@ export const AdminLogin = () => {
             <span>Admin Portal</span>
           </div>
 
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#121212', marginBottom: '6px' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--ad-heading)', marginBottom: '6px' }}>
             Masuk ke Dashboard
           </h1>
-          <p style={{ fontSize: '0.875rem', color: '#667085' }}>
+          <p style={{ fontSize: '0.875rem', color: 'var(--ad-muted)' }}>
             Kelola portofolio, layanan, testimoni & pesan masuk
           </p>
         </div>
@@ -114,9 +114,9 @@ export const AdminLogin = () => {
         {/* Error Notification */}
         {error && (
           <div role="alert" style={{
-            background: '#FEF3F2',
-            border: '1px solid #FECDCA',
-            color: '#B42318',
+            background: 'var(--ad-danger-bg)',
+            border: '1px solid var(--ad-danger-border)',
+            color: 'var(--ad-danger)',
             padding: '12px 16px',
             borderRadius: '10px',
             fontSize: '0.85rem',
@@ -133,11 +133,11 @@ export const AdminLogin = () => {
         {/* Login Form */}
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '18px' }}>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#344054', marginBottom: '6px' }}>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '6px' }}>
               Username
             </label>
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#98A2B3' }}>
+              <div style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--ad-faint)' }}>
                 <User size={18} />
               </div>
               <input
@@ -150,11 +150,12 @@ export const AdminLogin = () => {
                   width: '100%',
                   padding: '12px 14px 12px 42px',
                   borderRadius: '10px',
-                  border: '1px solid #D0D5DD',
+                  border: '1px solid var(--ad-input-border)',
                   fontSize: '0.9rem',
                   outline: 'none',
                   transition: 'border-color 0.2s, box-shadow 0.2s',
-                  background: '#FFFFFF'
+                  background: 'var(--ad-input)',
+                  color: 'var(--ad-heading)'
                 }}
                 disabled={loading}
               />
@@ -162,11 +163,11 @@ export const AdminLogin = () => {
           </div>
 
           <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#344054', marginBottom: '6px' }}>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '6px' }}>
               Password
             </label>
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#98A2B3' }}>
+              <div style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--ad-faint)' }}>
                 <Lock size={18} />
               </div>
               <input
@@ -179,11 +180,12 @@ export const AdminLogin = () => {
                   width: '100%',
                   padding: '12px 42px 12px 42px',
                   borderRadius: '10px',
-                  border: '1px solid #D0D5DD',
+                  border: '1px solid var(--ad-input-border)',
                   fontSize: '0.9rem',
                   outline: 'none',
                   transition: 'border-color 0.2s, box-shadow 0.2s',
-                  background: '#FFFFFF'
+                  background: 'var(--ad-input)',
+                  color: 'var(--ad-heading)'
                 }}
                 disabled={loading}
               />
@@ -197,7 +199,7 @@ export const AdminLogin = () => {
                   transform: 'translateY(-50%)',
                   background: 'transparent',
                   border: 'none',
-                  color: '#98A2B3',
+                  color: 'var(--ad-faint)',
                   cursor: 'pointer',
                   padding: '4px'
                 }}
@@ -248,7 +250,7 @@ export const AdminLogin = () => {
             href="/"
             style={{
               fontSize: '0.85rem',
-              color: 'var(--green-700)',
+              color: 'var(--ad-accent)',
               textDecoration: 'none',
               fontWeight: 600
             }}

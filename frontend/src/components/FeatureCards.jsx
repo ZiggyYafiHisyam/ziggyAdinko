@@ -13,12 +13,13 @@ const getFeatureIcon = (iconName) => {
   }
 };
 
-export const FeatureCards = ({ activeIndexDefault = 0 }) => {
+export const FeatureCards = ({ activeIndexDefault = 0, items }) => {
   const [hoveredIndex, setHoveredIndex] = useState(activeIndexDefault);
+  const list = items && items.length ? items : interactiveFeatures;
 
   return (
     <div className="feature-cards-grid">
-      {interactiveFeatures.map((item, index) => {
+      {list.map((item, index) => {
         const isActive = hoveredIndex === index;
 
         return (

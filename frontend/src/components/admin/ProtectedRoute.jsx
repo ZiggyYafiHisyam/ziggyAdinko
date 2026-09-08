@@ -14,11 +14,11 @@ export const ProtectedRoute = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#F9FAFB',
+        background: '#0C1310',
         gap: '16px'
       }}>
-        <Loader2 size={40} color="#486F0C" className="animate-spin" />
-        <p style={{ color: '#475467', fontWeight: 600, fontSize: '0.95rem' }}>Memeriksa sesi admin...</p>
+        <Loader2 size={40} color="#9BD26A" className="animate-spin" />
+        <p style={{ color: '#93A99D', fontWeight: 600, fontSize: '0.95rem' }}>Memeriksa sesi admin...</p>
       </div>
     );
   }

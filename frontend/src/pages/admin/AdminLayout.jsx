@@ -12,9 +12,11 @@ import {
   ExternalLink,
   Menu,
   X,
-  User
+  User,
+  FileEdit
 } from 'lucide-react';
 import { AdinkoLogo } from '../../assets/Logos';
+import './admin.css';
 
 export const AdminLayout = () => {
   const { user, logout } = useAuth();
@@ -22,12 +24,10 @@ export const AdminLayout = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Admin panel palette (single light theme)
-  const sidebarBg = '#1C2A1E';
-  const mainBg = '#F0F4F1';
-  const borderColor = 'rgba(0,0,0,0.1)';
-  const textMuted = '#556B5E';
-  const navLinkColor = '#CBD8D1';
+  const sidebarBg = 'var(--ad-sidebar)';
+  const borderColor = 'var(--ad-border)';
+  const textMuted = 'var(--ad-muted)';
+  const navLinkColor = 'var(--ad-text)';
 
   const handleLogout = async () => {
     await logout();
@@ -36,6 +36,7 @@ export const AdminLayout = () => {
 
   const navItems = [
     { to: '/admin/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
+    { to: '/admin/pages', icon: <FileEdit size={20} />, label: 'Editor Halaman' },
     { to: '/admin/portofolio', icon: <FolderKanban size={20} />, label: 'Portofolio Proyek' },
     { to: '/admin/layanan', icon: <Layers size={20} />, label: 'Layanan Katalog' },
     { to: '/admin/testimoni', icon: <MessageSquare size={20} />, label: 'Testimoni & Review' },
@@ -44,12 +45,12 @@ export const AdminLayout = () => {
   ];
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: mainBg }}>
+    <div className="admin-shell" style={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar Desktop */}
       <aside style={{
         width: '270px',
         background: sidebarBg,
-        color: '#FFFFFF',
+        color: 'var(--ad-heading)',
         display: 'flex',
         flexDirection: 'column',
         flexShrink: 0,
@@ -61,11 +62,11 @@ export const AdminLayout = () => {
       }} className="admin-sidebar-desktop">
         {/* Brand Header */}
         <div style={{ padding: '24px 20px', borderBottom: `1px solid ${borderColor}`, display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '8px', borderRadius: '12px' }}>
+          <div style={{ background: 'rgba(255, 255, 255, 0.06)', padding: '8px', borderRadius: '12px' }}>
             <AdinkoLogo size={28} showText={false} />
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+            <div style={{ fontWeight: 800, fontSize: '1.05rem', color: 'var(--ad-heading)', letterSpacing: '-0.02em' }}>
               Adinko x Ghazi
             </div>
             <div style={{ fontSize: '0.75rem', color: textMuted, fontWeight: 600 }}>
@@ -76,7 +77,7 @@ export const AdminLayout = () => {
 
         {/* Navigation Links */}
         <nav style={{ flex: 1, padding: '20px 14px', display: 'flex', flexDirection: 'column', gap: '6px', overflowY: 'auto' }}>
-          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#61796B', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0 10px 8px 10px' }}>
+          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--ad-faint)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0 10px 8px 10px' }}>
             Menu Utama
           </div>
           {navItems.map((item) => {
@@ -99,7 +100,7 @@ export const AdminLayout = () => {
                   transition: 'background 0.2s, color 0.2s'
                 }}
               >
-                <span style={{ color: isActive ? '#FFFFFF' : '#88A392' }}>{item.icon}</span>
+                <span style={{ color: isActive ? '#FFFFFF' : 'var(--ad-muted)' }}>{item.icon}</span>
                 <span>{item.label}</span>
               </NavLink>
             );
@@ -119,7 +120,7 @@ export const AdminLayout = () => {
               padding: '10px 14px',
               borderRadius: '8px',
               background: 'rgba(255, 255, 255, 0.05)',
-              color: '#B2C4B8',
+              color: 'var(--ad-text)',
               fontSize: '0.85rem',
               fontWeight: 600,
               textDecoration: 'none'
@@ -135,10 +136,10 @@ export const AdminLayout = () => {
                 <User size={18} />
               </div>
               <div style={{ overflow: 'hidden' }}>
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--ad-heading)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {user?.name || user?.username || 'Admin'}
                 </div>
-                <div style={{ fontSize: '0.72rem', color: '#88A392' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--ad-muted)' }}>
                   {user?.role || 'Administrator'}
                 </div>
               </div>
@@ -148,9 +149,9 @@ export const AdminLayout = () => {
               onClick={handleLogout}
               title="Logout"
               style={{
-                background: 'rgba(239, 68, 68, 0.15)',
+                background: 'var(--ad-danger-bg)',
                 border: 'none',
-                color: '#F87171',
+                color: 'var(--ad-danger)',
                 padding: '8px',
                 borderRadius: '8px',
                 cursor: 'pointer',
@@ -170,7 +171,7 @@ export const AdminLayout = () => {
         {/* Mobile Header */}
         <header style={{
           background: sidebarBg,
-          color: '#FFFFFF',
+          color: 'var(--ad-heading)',
           padding: '16px 20px',
           display: 'none',
           alignItems: 'center',
@@ -182,7 +183,7 @@ export const AdminLayout = () => {
           </div>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{ background: 'transparent', border: 'none', color: '#FFFFFF', cursor: 'pointer' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--ad-heading)', cursor: 'pointer' }}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -190,7 +191,7 @@ export const AdminLayout = () => {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div style={{ background: '#1C2A1E', padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ background: 'var(--ad-sidebar)', padding: '16px', borderBottom: '1px solid var(--ad-border)' }}>
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -201,7 +202,7 @@ export const AdminLayout = () => {
                   alignItems: 'center',
                   gap: '12px',
                   padding: '12px',
-                  color: '#FFFFFF',
+                  color: 'var(--ad-heading)',
                   textDecoration: 'none',
                   borderRadius: '8px',
                   fontWeight: location.pathname === item.to ? 700 : 500,

@@ -3,10 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { servicesData } from '../data/siteData';
 import { HeroFloatingBadge } from '../components/FloatingCta';
+import { usePageContent } from '../context/ContentContext';
 import { getRows } from '../api';
+
+const toTags = (str) => (str || '').split(',').map(s => s.trim()).filter(Boolean);
 
 export const Layanan = () => {
   const navigate = useNavigate();
+  const { c } = usePageContent('layanan');
   const [serviceItems, setServiceItems] = useState(servicesData.allGrid);
 
   useEffect(() => {
@@ -24,21 +28,21 @@ export const Layanan = () => {
   return (
     <div>
       {/* 1. HERO SECTION */}
-      <section 
+      <section
         className="hero-wrapper"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1800&q=80')` }}
+        style={{ backgroundImage: `url('${c('hero.bg')}')` }}
       >
         <div className="hero-overlay" />
         <div className="container">
           <div className="hero-content">
             <div className="hero-tag">
-              Layanan Kami
+              {c('hero.tag')}
             </div>
             <h1 className="hero-title">
-              Solusi Lengkap Rumput Sintetis & Lapangan Olahraga
+              {c('hero.title')}
             </h1>
             <p className="hero-subtitle">
-              Kami hadir sebagai mitra terpercaya untuk kebutuhan taman sintetis maupun fasilitas olahraga profesional Anda.
+              {c('hero.subtitle')}
             </p>
           </div>
         </div>
@@ -52,15 +56,15 @@ export const Layanan = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px' }}>
             {/* Brand 1: ADINKO */}
             <div style={{ background: 'var(--gray-bg)', borderRadius: '24px', padding: '36px', border: '1px solid var(--gray-border)' }}>
-              <span className="section-tag">{servicesData.adinko.brand}</span>
+              <span className="section-tag">{c('adinko.brand')}</span>
               <h2 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '14px' }}>
-                {servicesData.adinko.title}
+                {c('adinko.title')}
               </h2>
               <p style={{ color: 'var(--gray-text)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '24px' }}>
-                {servicesData.adinko.description}
+                {c('adinko.desc')}
               </p>
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                {servicesData.adinko.tags.map((tag, idx) => (
+                {toTags(c('adinko.tags')).map((tag, idx) => (
                   <span 
                     key={idx} 
                     className="badge-tag"
@@ -74,15 +78,15 @@ export const Layanan = () => {
 
             {/* Brand 2: GhaziSportsHub */}
             <div style={{ background: 'var(--gray-bg)', borderRadius: '24px', padding: '36px', border: '1px solid var(--gray-border)' }}>
-              <span className="section-tag">{servicesData.ghazi.brand}</span>
+              <span className="section-tag">{c('ghazi.brand')}</span>
               <h2 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '14px' }}>
-                {servicesData.ghazi.title}
+                {c('ghazi.title')}
               </h2>
               <p style={{ color: 'var(--gray-text)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '24px' }}>
-                {servicesData.ghazi.description}
+                {c('ghazi.desc')}
               </p>
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                {servicesData.ghazi.tags.map((tag, idx) => (
+                {toTags(c('ghazi.tags')).map((tag, idx) => (
                   <span 
                     key={idx} 
                     className="badge-tag"
@@ -101,10 +105,10 @@ export const Layanan = () => {
       <section style={{ padding: '80px 0', background: 'var(--gray-bg)' }}>
         <div className="container">
           <div className="text-center">
-            <span className="section-tag">LAYANAN KAMI</span>
-            <h2 className="section-title">Satu Solusi untuk Semua Kebutuhan Anda</h2>
+            <span className="section-tag">{c('grid.tag')}</span>
+            <h2 className="section-title">{c('grid.title')}</h2>
             <p className="section-subtitle mx-auto">
-              Dari pemasangan rumput sintetis hingga pembangunan lapangan olahraga, kami menghadirkan layanan lengkap.
+              {c('grid.subtitle')}
             </p>
           </div>
 
@@ -127,11 +131,11 @@ export const Layanan = () => {
           </div>
 
           <div className="text-center">
-            <button 
-              onClick={() => navigate('/kontak')} 
+            <button
+              onClick={() => navigate('/kontak')}
               className="btn-primary-hero"
             >
-              <span>Konsultasi GRATIS Sekarang</span>
+              <span>{c('grid.btn')}</span>
               <span className="arrow-circle">
                 <ArrowRight size={14} />
               </span>

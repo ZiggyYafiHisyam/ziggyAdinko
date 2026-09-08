@@ -137,10 +137,10 @@ export const AdminPortofolio = () => {
       {/* Page Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#121212', marginBottom: '4px' }}>
+          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--ad-heading)', marginBottom: '4px' }}>
             Portofolio Proyek
           </h1>
-          <p style={{ color: '#667085', fontSize: '0.9rem' }}>
+          <p style={{ color: 'var(--ad-muted)', fontSize: '0.9rem' }}>
             Kelola dokumentasi dan foto hasil pengerjaan Adinko & GhaziSportsHub
           </p>
         </div>
@@ -156,7 +156,7 @@ export const AdminPortofolio = () => {
       </div>
 
       {/* Filters & Search Toolbar */}
-      <div style={{ background: '#FFFFFF', padding: '16px 20px', borderRadius: '14px', border: '1px solid #EAECF0', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <div style={{ background: 'var(--ad-card)', padding: '16px 20px', borderRadius: '14px', border: '1px solid var(--ad-border)', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
           {categories.map(cat => (
             <button
@@ -169,8 +169,8 @@ export const AdminPortofolio = () => {
                 fontWeight: 600,
                 border: 'none',
                 cursor: 'pointer',
-                background: activeCategory === cat ? 'var(--green-600)' : '#F2F4F7',
-                color: activeCategory === cat ? '#FFFFFF' : '#475467',
+                background: activeCategory === cat ? 'var(--green-600)' : 'var(--ad-soft)',
+                color: activeCategory === cat ? '#FFFFFF' : 'var(--ad-text)',
                 transition: 'background 0.2s'
               }}
             >
@@ -180,7 +180,7 @@ export const AdminPortofolio = () => {
         </div>
 
         <div style={{ position: 'relative', minWidth: '240px' }}>
-          <Search size={16} color="#98A2B3" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+          <Search size={16} color="var(--ad-faint)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
           <input
             type="text"
             placeholder="Cari nama proyek atau lokasi..."
@@ -190,7 +190,7 @@ export const AdminPortofolio = () => {
               width: '100%',
               padding: '8px 12px 8px 36px',
               borderRadius: '8px',
-              border: '1px solid #D0D5DD',
+              border: '1px solid var(--ad-input-border)',
               fontSize: '0.85rem',
               outline: 'none'
             }}
@@ -200,9 +200,9 @@ export const AdminPortofolio = () => {
 
       {/* Grid of Portfolio Cards */}
       {loading ? (
-        <div style={{ padding: '60px', textAlign: 'center', color: '#667085' }}>Memuat portofolio...</div>
+        <div style={{ padding: '60px', textAlign: 'center', color: 'var(--ad-muted)' }}>Memuat portofolio...</div>
       ) : filteredItems.length === 0 ? (
-        <div style={{ padding: '60px', textAlign: 'center', background: '#FFFFFF', borderRadius: '16px', border: '1px dashed #D0D5DD', color: '#667085' }}>
+        <div style={{ padding: '60px', textAlign: 'center', background: 'var(--ad-card)', borderRadius: '16px', border: '1px dashed var(--ad-input-border)', color: 'var(--ad-muted)' }}>
           Tidak ada portofolio yang cocok.
         </div>
       ) : (
@@ -211,9 +211,9 @@ export const AdminPortofolio = () => {
             <div
               key={item.id_portofolio || item.id}
               style={{
-                background: '#FFFFFF',
+                background: 'var(--ad-card)',
                 borderRadius: '16px',
-                border: '1px solid #EAECF0',
+                border: '1px solid var(--ad-border)',
                 overflow: 'hidden',
                 boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
                 display: 'flex',
@@ -221,7 +221,7 @@ export const AdminPortofolio = () => {
               }}
             >
               {/* Image Preview */}
-              <div style={{ height: '180px', position: 'relative', background: '#E4E7EC' }}>
+              <div style={{ height: '180px', position: 'relative', background: 'var(--ad-subtle)' }}>
                 {item.image ? (
                   <img
                     src={item.image.split(',')[0].trim()}
@@ -229,7 +229,7 @@ export const AdminPortofolio = () => {
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 ) : (
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#98A2B3' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--ad-faint)' }}>
                     <ImageIcon size={32} />
                   </div>
                 )}
@@ -252,27 +252,27 @@ export const AdminPortofolio = () => {
               {/* Body */}
               <div style={{ padding: '18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#121212', marginBottom: '4px' }}>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--ad-heading)', marginBottom: '4px' }}>
                     {item.title}
                   </h3>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--green-700)', fontWeight: 600, marginBottom: '8px' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--ad-accent)', fontWeight: 600, marginBottom: '8px' }}>
                     📍 {item.location || 'Pekanbaru'}
                   </div>
-                  <p style={{ fontSize: '0.85rem', color: '#667085', lineHeight: 1.5, marginBottom: '16px' }}>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--ad-muted)', lineHeight: 1.5, marginBottom: '16px' }}>
                     {item.description || 'Tidak ada deskripsi.'}
                   </p>
                 </div>
 
                 {/* Actions */}
-                <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid #F2F4F7', paddingTop: '12px' }}>
+                <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid var(--ad-soft)', paddingTop: '12px' }}>
                   <button
                     onClick={() => openEditModal(item)}
                     style={{
                       flex: 1,
                       padding: '8px',
                       borderRadius: '8px',
-                      background: '#F4F7EE',
-                      color: 'var(--green-800)',
+                      background: 'var(--ad-accent-soft)',
+                      color: 'var(--ad-accent)',
                       border: 'none',
                       fontWeight: 600,
                       fontSize: '0.82rem',
@@ -291,8 +291,8 @@ export const AdminPortofolio = () => {
                     style={{
                       padding: '8px 12px',
                       borderRadius: '8px',
-                      background: '#FEF3F2',
-                      color: '#B42318',
+                      background: 'var(--ad-danger-bg)',
+                      color: 'var(--ad-danger)',
                       border: 'none',
                       fontWeight: 600,
                       fontSize: '0.82rem',
@@ -319,7 +319,7 @@ export const AdminPortofolio = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0,0,0,0.5)',
+          background: 'var(--ad-overlay)',
           backdropFilter: 'blur(4px)',
           display: 'flex',
           alignItems: 'center',
@@ -328,33 +328,33 @@ export const AdminPortofolio = () => {
           padding: '20px'
         }}>
           <div style={{
-            background: '#FFFFFF',
+            background: 'var(--ad-card)',
             borderRadius: '20px',
             width: '100%',
             maxWidth: '560px',
             maxHeight: '90vh',
             overflowY: 'auto',
             padding: '28px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+            boxShadow: '0 20px 40px rgba(0,0,0,0.55)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#121212' }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--ad-heading)' }}>
                 {editingItem ? 'Edit Portofolio Proyek' : 'Tambah Portofolio Proyek'}
               </h2>
-              <button onClick={() => setIsModalOpen(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#667085' }}>
+              <button onClick={() => setIsModalOpen(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--ad-muted)' }}>
                 <X size={20} />
               </button>
             </div>
 
             {error && (
-              <div style={{ background: '#FEF3F2', color: '#B42318', padding: '10px 14px', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '16px' }}>
+              <div style={{ background: 'var(--ad-danger-bg)', color: 'var(--ad-danger)', padding: '10px 14px', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '16px' }}>
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                   Judul Proyek *
                 </label>
                 <input
@@ -363,19 +363,19 @@ export const AdminPortofolio = () => {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Contoh: Mini Soccer Park Rumbai"
-                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                     Kategori *
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.9rem' }}
                   >
                     <option value="Taman">Taman</option>
                     <option value="Lapangan Futsal">Lapangan Futsal</option>
@@ -386,7 +386,7 @@ export const AdminPortofolio = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                     Lokasi & Tahun *
                   </label>
                   <input
@@ -395,13 +395,13 @@ export const AdminPortofolio = () => {
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="Contoh: Rumbai, Pekanbaru 2024"
-                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.9rem' }}
                   />
                 </div>
               </div>
 
               <div style={{ marginBottom: '14px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                   Deskripsi Proyek
                 </label>
                 <textarea
@@ -409,13 +409,13 @@ export const AdminPortofolio = () => {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Detail pengerjaan proyek..."
-                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.9rem' }}
                 />
               </div>
 
               {/* Image Input & Upload */}
               <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#344054', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--ad-text)', marginBottom: '4px' }}>
                   Foto Proyek (Upload File atau Masukkan URL)
                 </label>
                 <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
@@ -424,13 +424,13 @@ export const AdminPortofolio = () => {
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                     placeholder="https://... atau /assets/..."
-                    style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #D0D5DD', fontSize: '0.85rem' }}
+                    style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--ad-input-border)', fontSize: '0.85rem' }}
                   />
                   <label style={{
                     padding: '10px 14px',
                     borderRadius: '8px',
-                    background: '#F2F4F7',
-                    color: '#344054',
+                    background: 'var(--ad-soft)',
+                    color: 'var(--ad-text)',
                     fontWeight: 600,
                     fontSize: '0.82rem',
                     cursor: uploading ? 'not-allowed' : 'pointer',
@@ -454,7 +454,7 @@ export const AdminPortofolio = () => {
                 {formData.image && (
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '8px' }}>
                     {formData.image.split(',').map((imgUrl, idx) => (
-                      <div key={idx} style={{ width: '100%', height: '120px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #EAECF0' }}>
+                      <div key={idx} style={{ width: '100%', height: '120px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--ad-border)' }}>
                         <img src={imgUrl.trim()} alt={`Preview ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
                     ))}
@@ -466,7 +466,7 @@ export const AdminPortofolio = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  style={{ padding: '10px 18px', borderRadius: '8px', background: '#F2F4F7', color: '#344054', border: 'none', fontWeight: 600, cursor: 'pointer' }}
+                  style={{ padding: '10px 18px', borderRadius: '8px', background: 'var(--ad-soft)', color: 'var(--ad-text)', border: 'none', fontWeight: 600, cursor: 'pointer' }}
                 >
                   Batal
                 </button>
